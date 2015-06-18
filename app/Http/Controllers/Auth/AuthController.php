@@ -22,6 +22,18 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers;
 
+    protected $redirectTo = '/home';
+
+    /*
+    public function authenticate()
+    {
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            // Authentication passed...
+            return redirect()->intended('home');
+        }
+    }
+     */
+
     /**
      * Create a new authentication controller instance.
      *

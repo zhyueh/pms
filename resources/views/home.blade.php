@@ -1,5 +1,5 @@
 <html>
 <body>
-login page
+hello, {{ $login_user->name}}
 </body>
 </html>
