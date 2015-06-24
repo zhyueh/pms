@@ -1,21 +1,21 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Http\Controllers\Setting;
 
 use Illuminate\Http\Request;
 
-use DummyRootNamespaceHttp\Requests;
-use DummyRootNamespaceHttp\Controllers\SingleFormController;
+use App\Http\Models\Setting\Menu;
+use App\Http\Requests;
+use App\Http\Controllers\SingleFormController;
 
-class DummyClass extends SingleFormController
+class MenuController extends SingleFormController
 {
     public function __construct()
     {
-        /*
         $this->model = 'App\Http\Models\Setting\Menu';
-        $this->fields_show = ['id' ,'name', 'action', 'updated_at'];
-        $this->fields_edit = ['name', 'action'];
-        $this->fields_create = ['name', 'action'];
+        $this->fields_show = ['id' ,'name', 'action', 'parent_menu', 'updated_at'];
+        $this->fields_edit = ['name', 'action', 'parent_menu', 'display_order'];
+        $this->fields_create = ['name', 'action', 'parent_menu', 'display_order'];
 
 
         $menu = new Menu;
@@ -30,14 +30,19 @@ class DummyClass extends SingleFormController
                 'field'=>'parent_menu_id',
                 'enum'=>$parent_menu_dict,
             ]];
-        */
+
+        
         parent::__construct();
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
+    public function getIndex(){
+        return parent::getIndex();
+    }
 
     /**
      * Show the form for creating a new resource.

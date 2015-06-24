@@ -1,78 +1,24 @@
 @extends('base')
 
-@section('reference_before_body')
 
-<style type="text/css">
-.pms-header{
-    background-color:#036;
-    margin:auto;
-    width:100%;
-}
-
-.pms-body{
-    background-color:#e0e0e0;
-    padding:20 20 20 20;
-}
-
-.pms-power{
-    width:100%;
-    background-color:#e0e0e0;
-    padding:10px;
-    text-align:center;
-    color:#000;
-}
-
-.pms-workspace{
-    border:1px solid #cfcfcf;
-    background-color:#fff;
-    padding:20 20 20 20;
-}
-.pms-header-top{
-    padding-right:10px;
-    padding-top:10px;
-}
-.website-name{
-    width:auto;
-    padding-left:30px;
-    color:#fc0;
-    text-align:left;
-    float:left;
-}
-.person{
-    width:auto;
-    color:#fff;
-    float:right;
-    padding-right:80px;
-}
-
-.pms-module-nav{
-    padding-left:20px;
-    margin-top:5px;
-}
-
-.pms-sub-module-nav{
-    padding-top:10px;
-    padding-left:20px;
-    background-color:#e0e0e0;
-}
-
-.pms-user{
-    color:#d1e4f2;
-    padding:5px 5px;
-}
-
-.pms-user:hover{
-    background-color:#2e6dad;
-    color:#fff;
-    cursor:pointer;
-}
-.clear{
-    clear:both;
-}
-</style>
-
+@section('reference_after_body')
+<script type="text/javascript">
+    function showAlert(id, type){
+        trimValue = $("#" + id).html().trim()
+        if (trimValue != ''){
+            $("#" + id).show(); 
+            $("#" + id).addClass("alert").addClass("alert-" + type);
+            console.log(trimValue);
+        }
+    }
+    showAlert("pms-notification", "info");
+    showAlert("pms-warning", "danger");
+    $(".pms-table>tbody>tr:odd").css("background-color", "#f9f9f9"); 
+    $(".pms-table>tbody>tr:even").css("background-color", "#fff"); 
+</script>
 
 @endsection
+
 
 @section('body')
 <div class="pms-header">
@@ -99,24 +45,57 @@
     <div class="clear"></div>
     <div class="pms-module-nav">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#">主页</a></li>
-            <li role="presentation"><a href="#">项目</a></li>
-            <li role="presentation"><a href="#">时间表</a></li>
-            <li role="presentation"><a href="#">会议</a></li>
-            <li role="presentation"><a href="#">周报</a></li>
-        </ul>
+<?php 
+foreach($nav_menu as $menu)
+{
+    echo "<li role='presentation' ";
+
+    if ($menu->name == $nav_active_menu){
+        echo "class='active'";
+    }
+    echo "><a href='".action($menu->action)."'>$menu->name</a></li>";
+}
+
+?>
     </div>
     <div class="pms-sub-module-nav">
        @section('sub-header')
-       sub-header
+<?php
+foreach($nav_sub_menu as $menu)
+{
+    echo "<div class='pms-sub-nav-item'>";
+    echo "<a href='".action($menu->action)."'>$menu->name</a>";
+    echo "</div>";
+}
+?>
+    <div class="clear"></div>
        @show()
     </div>
 </div>
 <div class="pms-body">
-    <div class="pms-workspace">
-        @section('workspace')
-        workspace
-        @show()
+    <div class="pms-body-content">
+        <div id="pms-notification" class="pms-notification" role="alert">
+            @yield('notification')
+        </div>
+        <div id="pms-warning" class="pms-warning" role="alert">
+            @yield('warning')
+        </div>
+        <div class="pms-module-helper">
+            <div class="pms-module-helper-left">
+                @section('module-helper-lect')
+                @show()
+            </div>
+            <div class="pms-module-helper-right">
+                @section('module-helper-right')
+                @show()
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="pms-workspace">
+            @section('workspace')
+            workspace
+            @show()
+        </div>
     </div>
 </div>
 <div class="pms-power">

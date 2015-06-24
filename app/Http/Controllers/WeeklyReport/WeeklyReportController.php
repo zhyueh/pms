@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\WeeklyReport;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\SingleFormController;
 
-class HomeController extends Controller
+class WeeklyReportController extends SingleFormController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function getIndex()
-    {
-        //
-        return view("home");
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +26,7 @@ class HomeController extends Controller
      */
     public function getCreate()
     {
-        //
+        return parent::getCreate();
     }
 
     /**
@@ -38,6 +37,7 @@ class HomeController extends Controller
     public function postStore()
     {
         //
+        return parent::postStore();
     }
 
     /**
@@ -46,9 +46,10 @@ class HomeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function getShow($id)
+    public function getShow()
     {
         //
+        return parent::getShow();
     }
 
     /**
@@ -57,9 +58,10 @@ class HomeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function showEdit($id)
+    public function getEdit()
     {
         //
+        return parent::getEdit();
     }
 
     /**
@@ -68,9 +70,10 @@ class HomeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function postUpdate($id)
+    public function postUpdate()
     {
         //
+        return parent::postUpdate();
     }
 
     /**
@@ -79,8 +82,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function postDestroy($id)
+    public function postDestroy()
     {
         //
+        return parent::postDestroy();
     }
 }

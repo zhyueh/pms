@@ -1,37 +1,23 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Http\Controllers\Setting;
 
 use Illuminate\Http\Request;
 
-use DummyRootNamespaceHttp\Requests;
-use DummyRootNamespaceHttp\Controllers\SingleFormController;
+use App\Http\Models\Setting\Role;
+use App\Http\Requests;
+use App\Http\Controllers\SingleFormController;
 
-class DummyClass extends SingleFormController
+class RoleController extends SingleFormController
 {
     public function __construct()
     {
-        /*
-        $this->model = 'App\Http\Models\Setting\Menu';
-        $this->fields_show = ['id' ,'name', 'action', 'updated_at'];
-        $this->fields_edit = ['name', 'action'];
-        $this->fields_create = ['name', 'action'];
-
-
-        $menu = new Menu;
-        $parent_menus = $menu->where("parent_menu_id", 0)->get();
-        $parent_menu_dict = []; 
-        $parent_menu_dict[0] = '-';
-        foreach ($parent_menus as $parent_menu){
-            $parent_menu_dict[$parent_menu->id] = $parent_menu->name;
-        }
-        $this->fields_enum=['parent_menu'=>
-            [
-                'field'=>'parent_menu_id',
-                'enum'=>$parent_menu_dict,
-            ]];
-        */
+        $this->model = 'App\Http\Models\Setting\Role';
+        $this->fields_show = ['id' ,'name', 'updated_at'];
+        $this->fields_edit = ['name'];
+        $this->fields_create = ['name'];
         parent::__construct();
+
     }
     /**
      * Display a listing of the resource.

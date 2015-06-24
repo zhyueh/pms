@@ -21,5 +21,18 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::controller('user', 'UserController');
-Route::controller('home', 'HomeController');
+Route::controller('home', 'Home\HomeController');
 
+Route::controller('project', 'Project\ProjectController');
+Route::controller('project\project', 'Project\ProjectController');
+Route::controller('project\version', 'Project\VersionController');
+Route::controller('project\module', 'Project\ModuleController');
+
+
+Route::controller('schedule', 'Schedule\ScheduleController');
+Route::controller('meeting', 'Meeting\MeetingController');
+Route::controller('weeklyreport', 'WeeklyReport\WeeklyReportController');
+Route::controller('organization', 'Organization\OrganizationController');
+
+Route::controller('setting/role', 'Setting\RoleController');
+Route::controller('setting/menu', 'Setting\MenuController');
