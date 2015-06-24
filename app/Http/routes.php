@@ -23,11 +23,11 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::controller('user', 'UserController');
 Route::controller('home', 'Home\HomeController');
 
-Route::controller('project', 'Project\ProjectController');
-Route::controller('project\project', 'Project\ProjectController');
-Route::controller('project\version', 'Project\VersionController');
-Route::controller('project\module', 'Project\ModuleController');
-
+Route::controller('project/project', 'Project\ProjectController');
+Route::controller('project/version', 'Project\VersionController');
+Route::controller('project/module', 'Project\ModuleController');
+Route::controller('project/team', 'Project\TeamController');
+Route::controller('project/story', 'Project\StoryController');
 
 Route::controller('schedule', 'Schedule\ScheduleController');
 Route::controller('meeting', 'Meeting\MeetingController');
@@ -36,3 +36,4 @@ Route::controller('organization', 'Organization\OrganizationController');
 
 Route::controller('setting/role', 'Setting\RoleController');
 Route::controller('setting/menu', 'Setting\MenuController');
+Route::controller('setting/user', 'Setting\UserController');

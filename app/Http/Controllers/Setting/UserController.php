@@ -3,21 +3,27 @@
 namespace App\Http\Controllers\Setting;
 
 use Illuminate\Http\Request;
-
+use Input;
+use Redirect;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\SingleFormController;
 
-class UserController extends Controller
+class UserController extends SingleFormController
 {
+    public function __construct()
+    {
+        $this->model = 'App\User';
+        $this->fields_show = ['id' ,'name', 'email', 'updated_at'];
+        $this->fields_edit = ['name', 'email', 'password'];
+        $this->fields_create = ['name', 'email', 'password'];
+
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function getIndex()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +32,7 @@ class UserController extends Controller
      */
     public function getCreate()
     {
-        //
+        return parent::getCreate();
     }
 
     /**
@@ -37,6 +43,15 @@ class UserController extends Controller
     public function postStore()
     {
         //
+        $model = new $this->model;
+        if($id = Input::get("id")){
+            $model = $model->find($id);
+        }
+        $model->name = Input::get("name");
+        $model->email = Input::get("email");
+        $model->password = bcrypt(Input::get("password"));
+        $model->save();
+        return Redirect::to(action($this->controller . '@getIndex'));
     }
 
     /**
@@ -45,9 +60,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function getShow($id)
+    public function getShow()
     {
         //
+        return parent::getShow();
     }
 
     /**
@@ -56,9 +72,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function showEdit($id)
+    public function getEdit()
     {
         //
+        return parent::getEdit();
     }
 
     /**
@@ -67,9 +84,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function postUpdate($id)
+    public function postUpdate()
     {
         //
+        return parent::postUpdate();
     }
 
     /**
@@ -78,8 +96,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function postDestroy($id)
+    public function postDestroy()
     {
         //
+        return parent::postDestroy();
     }
 }

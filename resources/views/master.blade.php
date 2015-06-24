@@ -82,7 +82,7 @@ foreach($nav_sub_menu as $menu)
         </div>
         <div class="pms-module-helper">
             <div class="pms-module-helper-left">
-                @section('module-helper-lect')
+                @section('module-helper-left')
                 @show()
             </div>
             <div class="pms-module-helper-right">

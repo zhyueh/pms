@@ -175,3 +175,9 @@ body a:hover{
     padding-left:300px;
     padding-right:300px;
 }
+
+.pms-html-editor{
+    width:100%;
+    height:200px;
+    margin-bottom:50px;
+}

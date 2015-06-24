@@ -9,11 +9,7 @@ use Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-class Operation
-{
-
-}
+use App\Http\Models\Operation;
 
 class SingleFormController extends Controller
 {
@@ -51,12 +47,13 @@ class SingleFormController extends Controller
 
         View::share('fields_create', $this->fields_create);
 
-        $edit = new Operation;
-        $edit->name = "Edit";
-
-        $destroy = new Operation;
-        $destroy->name = "Destroy";
-        View::share('operations', [$edit, $destroy]);
+        if (count($this->operations) == 0)
+        {
+            $this->operations = [ new Operation("edit"),
+                new Operation("destroy"),
+                ];
+        }
+        View::share('operations', $this->operations);
 
         View::share('input', Input::all());
 

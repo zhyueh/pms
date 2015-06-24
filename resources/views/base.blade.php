@@ -8,6 +8,12 @@ PMS 主页
 <link rel="stylesheet" href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/bootstrap-3.3.4-dist/css/bootstrap.css">
 <link rel="stylesheet" href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/asset/css/pms.base.css">
+
+<script type="text/javascript" charset="utf-8" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/ueditor/ueditor.config.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 @yield('reference_before_body')
 <body>
 @section('body')

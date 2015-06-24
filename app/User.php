@@ -34,4 +34,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     //protected $dateFormat = 'U';
+    //
+    protected function dict()
+    {
+        $objs = User::get();
+        $obj_dict = [];
+        foreach ($objs as $obj)
+        {
+            $obj_dict[$obj->id] = $obj->name;
+        }
+        return $obj_dict;
+
+    }
 }
