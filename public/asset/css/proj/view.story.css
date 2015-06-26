@@ -1,0 +1,49 @@
+.story-left-panel{
+    width:70%;
+    padding-left:40px;
+    float:left;
+}
+
+.story-desc-panel{
+    width:100%;
+}
+.story-comment-panel{
+    width:100%;
+}
+
+.story-right-panel{
+    width:25%;
+    padding-left:2%;
+    padding-right:2%;
+    float:left;
+
+
+}
+
+.story-info-panel{
+    width:100%;
+}
+
+.story-history-panel{
+    width:100%;
+}
+
+.story-comments-table{
+    width:100%;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.story-comments-summary{
+    width:100%;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.story-comments-summary >div{
+    width:80%;
+    margin-bottom:3px;
+    border-bottom:solid 1px #e0e0e0;
+
+}
+

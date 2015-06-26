@@ -15,66 +15,22 @@
         </div>
         @endif
 
-        <div class="form-group">
-            <label for "story_name">{{trans("title.story_name")}}</label>
-            <input name="story_name" type="text" class="form-control" value="{{ $model->story_name }}"></input>
-        </div>
+        {!! display_form_group($model, "story_name", $fields_enum ) !!} 
+        {!! display_form_group($model, "project_name", $fields_enum, $action == 'getEdit') !!} 
+        {!! display_form_group($model, "module_name", $fields_enum, $action == 'getEdit') !!} 
+        {!! display_form_group($model, "version_name", $fields_enum) !!} 
+        {!! display_form_group($model, "status_name", $fields_enum) !!} 
+        {!! display_form_group($model, "priority_name", $fields_enum) !!} 
 
-        @foreach ($fields_edit as $f)
-<?php 
-$readonly = $action == 'getShow';
-$value = isset($model->$f) ? $model->$f:"";
-if (array_key_exists($f, $fields_enum))
-{
-    echo "<div class=\"form-group\">";
-    echo "<label for=\"$f\">".trans("title.$f")."</label>";
-    $field_spec = $fields_enum[$f];
+        {!! display_form_group($model, "description", $fields_enum, false, 'html') !!}
+        {!! display_form_group($model, "requirement", $fields_enum, false, 'html') !!}
+        {!! display_form_group($model, "remark", $fields_enum, false, 'html') !!}
 
-    $field_id = $field_spec["field"];
-    $value = $model->$field_id;
-    $field_dict = $field_spec["enum"];
-
-    echo "<select name='$field_id' class='form-control'>";
-    reset($field_dict);
-    while (list($k, $v) = each($field_dict))
-    {
-        
-        echo "<option value='$k'";
-        if ($k == $value){
-            echo " selected='selected' ";
-        }
-        echo " >$v</option>";
-    }
-    echo "</select></div>";
-}
-?>
-        @endforeach
-
-        <div class="form-group">
-            <label for="description">{{ trans('title.description')}}</label>
-            <script id="desc_editor" name="description" type="text/plain" class="pms-html-editor">
-                {!! $model->description !!}
-            </script>
-        </div>
-
-        <div class="form-group">
-            <label for="requirement">{{ trans('title.requirement')}}</label>
-            <script id="req_editor" name="requirement" type="text/plain" class="pms-html-editor">
-                {!! $model->requirement !!}
-            </script>
-        </div>
-        <div class="form-group">
-            <label for="remark">{{ trans('title.remark')}}</label>
-            <script id="remark_editor" name="remark" type="text/plain" class="pms-html-editor">
-                {!! $model->remark !!}
-            </script>
-        </div>
         <script type="text/javascript">
-            UE.getEditor('desc_editor');
-            UE.getEditor('req_editor');
-            UE.getEditor('remark_editor');
+            UE.getEditor('description_ueditor');
+            UE.getEditor('requirement_ueditor');
+            UE.getEditor('remark_ueditor');
         </script>
-
 
         @if ($action != 'getShow')
         <div class="col-sm-4 col-sm-offset-2">

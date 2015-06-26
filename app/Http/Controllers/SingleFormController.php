@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Operation;
+use App\Http\Models\Setting\Enum;
 
 class SingleFormController extends Controller
 {
@@ -33,11 +34,17 @@ class SingleFormController extends Controller
     public function __construct()
     {
         $route = Route::currentRouteAction();
-        list($this->controller, $action) = explode('@', $route);
+        list($this->controller, $this->action) = explode('@', $route);
         $this->controller = str_replace('App\\Http\\Controllers\\', '', $this->controller);
+
+        parent::__construct();
+    }
+
+    protected function  viewShare()
+    {
         View::share('controller', $this->controller);
 
-        View::share('action', $action);
+        View::share('action', $this->action);
 
         View::share('fields_enum', $this->fields_enum);
 
@@ -49,15 +56,27 @@ class SingleFormController extends Controller
 
         if (count($this->operations) == 0)
         {
-            $this->operations = [ new Operation("edit"),
-                new Operation("destroy"),
+            $this->operations = [ new Operation(gen_action("getEdit"), "edit"),
+                new Operation(gen_action("getDestroy"), "destroy"),
                 ];
         }
         View::share('operations', $this->operations);
 
         View::share('input', Input::all());
+    }
 
-        parent::__construct();
+    protected function viewMake($template, $var)
+    {
+        $this->viewShare();
+        $template_dict = [
+            'form.index'=>'formIndex',
+            'form.create' => 'formCreate',
+            ];
+
+        $template_name = array_get($template_dict, $template, $template);
+        $template_name = isset($this->$template_name)? $this->$template_name: $template;
+
+        return View::make($template_name, $var);
     }
 
     /**
@@ -68,6 +87,7 @@ class SingleFormController extends Controller
     public function getIndex()
     {
         //
+        $this->viewShare();
         if(!isset($this->model)){
             return View::make('form.index', [
                 'models'=>[],
@@ -85,7 +105,7 @@ class SingleFormController extends Controller
 
         $models = $builder->paginate(15);
 
-        return View::make('form.index', [
+        return $this->viewMake('form.index', [
             'models' => $models,
             'sort' => $sort,
             'sort_type' => $sort_type,
@@ -99,8 +119,7 @@ class SingleFormController extends Controller
      */
     public function getCreate()
     {
-        //
-        return View::make('form.create', ['model'=> new $this->model]);
+        return $this->viewMake('form.create', ['model'=> new $this->model]);
     }
 
     /**
@@ -142,7 +161,7 @@ class SingleFormController extends Controller
         $id = Input::get('id');
         $model = new $this->model;
         $model = $model->find($id);
-        return View::make('form.create', ['model'=> $model]);
+        return $this->viewMake('form.create', ['model'=> $model]);
     }
 
     /**
@@ -159,5 +178,31 @@ class SingleFormController extends Controller
         $model->destroy($id);
 
         return Redirect::to(action($this->controller . '@getIndex'));
+    }
+
+    protected function add_enum_dict($name, $id, $dict)
+    {
+        $this->fields_enum[$name]=[
+            'field'=>$id,
+            'enum'=>$dict,
+            ];
+    }
+
+    protected function add_raw_enum_dict($name, $id, $objs, $obj_id, $obj_name)
+    {
+        $dict = [];
+        
+        foreach ($objs as $obj)
+        {
+            $dict[$obj->$obj_id] = $obj->$obj_name;
+        }
+
+        $this->add_enum_dict($name, $id, $dict);
+
+    }
+
+    protected function add_enum($name, $id, $type)
+    {
+        $this->add_enum_dict($name, $id, Enum::dict($type));
     }
 }

@@ -45,29 +45,11 @@
     <div class="clear"></div>
     <div class="pms-module-nav">
         <ul class="nav nav-tabs">
-<?php 
-foreach($nav_menu as $menu)
-{
-    echo "<li role='presentation' ";
-
-    if ($menu->name == $nav_active_menu){
-        echo "class='active'";
-    }
-    echo "><a href='".action($menu->action)."'>$menu->name</a></li>";
-}
-
-?>
+        {!! display_nav_menu($nav_menu, $nav_active_menu) !!}
     </div>
     <div class="pms-sub-module-nav">
-       @section('sub-header')
-<?php
-foreach($nav_sub_menu as $menu)
-{
-    echo "<div class='pms-sub-nav-item'>";
-    echo "<a href='".action($menu->action)."'>$menu->name</a>";
-    echo "</div>";
-}
-?>
+        @section('sub-header')
+        {!! display_nav_sub_menu($nav_sub_menu) !!}
     <div class="clear"></div>
        @show()
     </div>

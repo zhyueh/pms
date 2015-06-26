@@ -181,3 +181,21 @@ body a:hover{
     height:200px;
     margin-bottom:50px;
 }
+
+.pms-display-group{
+    margin-bottom:5px;
+    border-bottom:solid 1px #e0e0e0;
+}
+
+.pms-group-title{
+    width:60px;
+    margin-right:20px;
+    text-align:right;
+    float:left;
+}
+
+.pms-group-value{
+    float:left;
+    max-width:60%;
+    text-align:left;
+}

@@ -28,6 +28,8 @@ Route::controller('project/version', 'Project\VersionController');
 Route::controller('project/module', 'Project\ModuleController');
 Route::controller('project/team', 'Project\TeamController');
 Route::controller('project/story', 'Project\StoryController');
+Route::controller('project/storycomment', 'Project\StoryCommentController');
+Route::controller('project/devplan', 'Project\DevPlanController');
 
 Route::controller('schedule', 'Schedule\ScheduleController');
 Route::controller('meeting', 'Meeting\MeetingController');
@@ -37,3 +39,5 @@ Route::controller('organization', 'Organization\OrganizationController');
 Route::controller('setting/role', 'Setting\RoleController');
 Route::controller('setting/menu', 'Setting\MenuController');
 Route::controller('setting/user', 'Setting\UserController');
+Route::controller('setting/enum', 'Setting\EnumController');
+Route::controller('setting/route', 'Setting\RouteController');

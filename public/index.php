@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -46,6 +47,8 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
+include __DIR__.'/../app/Helper.php';
+include __DIR__.'/../app/ViewHelper.php';
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

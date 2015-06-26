@@ -4,10 +4,17 @@ namespace App\Http\Models;
 
 class Operation
 {
+    public $name;
+    public $route;
+    public $style_type;
+    public $style_icon;
 
-    public function __construct($type)
+    public function __construct($route, $type)
     {
-        $this->btnType = "info";
+        $this->route = $route;
+
+        $this->style_type = "info";
+
         if ($type == "edit")
         {
             $this->setEdit();
@@ -19,15 +26,15 @@ class Operation
     }
     public function setEdit()
     {
-        $this->name = "Edit";
-        $this->type = "edit";
-        $this->action = "Edit";
+        $this->name = "edit";
+        $this->style_type = "default";
+        $this->style_icon = 'edit';
     }
 
     public function setDestroy()
     {
-        $this->name = "Destroy";
-        $this->type = "trash";
-        $this->action = "Destroy";
+        $this->name = "destroy";
+        $this->style_type = "danger";
+        $this->style_icon = 'trash';
     }
 }

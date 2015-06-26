@@ -1,11 +1,5 @@
 <div>
-    <script type="text/javascript">
-        function destroy(id){
-            if(confirm("{{ trans('title.confirm_delete') }} => " + id)){
-                window.location = "{{ action("$controller@getDestroy")}}?id="+ id;
-            }
-        }
-    </script>
+    {!! insert_destroy_script() !!}
     <table class="pms-table" id="pms-table">
         <thead>
             <tr>
@@ -21,7 +15,7 @@
     }
 ?>
                     @if ($sort == $sort_field && $sort_type == 'desc')
-                        <a class="glyphicon glyphicon-sort-by-attributes-alt" href="{{ action("$controller@getIndex")."?".http_build_query(["sort"=>$sort_field, "sort_type"=>'asc'])}}" >{{ trans("title.$f") }}</a>
+                        <a class="glyphicon glyphicon-sort-by-attributes-alt" href="{{ action_url("$controller@getIndex",["sort"=>$sort_field, "sort_type"=>'asc'])}}" >{{ trans("title.$f") }}</a>
                     @elseif ($sort == $sort_field && $sort_type == 'asc')
                         <a class="glyphicon glyphicon-sort-by-attributes" href="{{ action("$controller@getIndex")."?".http_build_query(["sort"=>$sort_field, "sort_type"=>'desc'])}}" >{{ trans("title.$f") }}</a>
                     @else
@@ -36,30 +30,13 @@
                 @foreach ($models as $m)
                 <tr>
                     @foreach ($fields_show as $f)
-                    <td>
-<?php 
-if (array_key_exists($f, $fields_enum))
-{
-    $field_spec = $fields_enum[$f];
-    $field_id = $field_spec["field"];
-
-    if (array_key_exists($m->$field_id, $field_spec["enum"]))
-    {
-        echo $field_spec["enum"][$m->$field_id];
-    }else{
-        echo "-";
-    }
-}else{
-    echo $m->$f;
-}
-?>
-                    </td>
+                    <td>{{ display_value($m, $f, $fields_enum) }}</td>
                     @endforeach
                     @foreach ($operations as $operation)
 
                     <td>
-                    @if ($operation->name != 'Destroy')
-                        <a class="btn btn-{{ $operation->btnType }} glyphicon glyphicon-{{ $operation->type}}" href='{{ action("$controller@get$operation->action")."?".http_build_query(["id"=> $m->id]) }}'>{{ trans(strtolower("title.$operation->name")) }}</a>
+                    @if ($operation->name != 'destroy')
+                        {!! create_button($operation, [], ['id'=>$m->id] )!!}
                     @else
                         <a class="btn btn-danger glyphicon glyphicon-trash" onclick="destroy({{ $m->id }});">{{ trans('title.destroy') }}</a>
                     @endif

@@ -1,7 +1,6 @@
 @extends('master')
 
 @section("module-helper-right")
-    <a class="glyphicon glyphicon-plus" href="#">{{ trans('title.create') }}</a>
 @endsection
 
 @section('workspace')

@@ -24,14 +24,15 @@ class TeamController extends SingleFormController
         $this->fields_edit = ['team_name', 'project_name'];
         $this->fields_create = ['team_name', 'project_name'];
 
-        $op_edit = new Operation('edit');
-        $op_edit->btnType = 'default';
+        $op_edit = new Operation(gen_action('getEdit'), 'edit');
 
-        $op_member_list =  new Operation('');
+        $op_member_list =  new Operation(gen_action('getTeamMemberList'), '');
         $op_member_list->name = 'member_list';
-        $op_member_list->type = 'th-list';
-        $op_member_list->action = 'TeamMemberList';
-        $this->operations = [$op_edit, $op_member_list, new Operation('destroy')];
+        $op_member_list->style_icon= 'th-list';
+        $this->operations = [
+            $op_edit,
+            $op_member_list, 
+            new Operation(gen_action('getDestroy'), 'destroy')];
 
 
         $projects = Project::get();
@@ -51,6 +52,7 @@ class TeamController extends SingleFormController
     {
         $team_id = intval(Input::get("id"));
         $team = Team::with('member', 'project')->find($team_id);
+        $this->viewShare();
         return View::make('project.teammember', [
             'team' => $team,
         ]);
@@ -77,6 +79,7 @@ class TeamController extends SingleFormController
             $team_members[] = $member->id;
         }
 
+        $this->viewShare();
         return View::make('project.add_teammember', [
             'team' => $team,
             'users' => User::whereNotIn('id', $team_members)->get(),
