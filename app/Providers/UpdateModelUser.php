@@ -21,6 +21,9 @@ class UpdateModelUser extends ServiceProvider
             'App\Http\Models\Project\StoryComment',
             'App\Http\Models\Project\DevPlan',
             'App\Http\Models\Project\TestCase',
+            'App\Http\Models\Project\TestPlan',
+            'App\Http\Models\Project\TestResult',
+            'App\Http\Models\Project\Bug',
         ];
 
         foreach($models as $model)

@@ -6,6 +6,7 @@ use View;
 use Input;
 use Route;
 use Redirect;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,9 @@ use App\Http\Models\Setting\Enum;
 class SingleFormController extends Controller
 {
     // 对应的模型
+    protected $controller;
+    protected $action;
+
     protected $model;
 
     // 列表页显示的字段
@@ -40,6 +44,17 @@ class SingleFormController extends Controller
         parent::__construct();
     }
 
+    protected function userId()
+    {
+        return Auth::user()->id;
+    }
+
+    protected function inputId($name)
+    {
+        $val = Input::get($name, Null);
+        return $val == Null? Null:intval($val);
+    }
+
     protected function  viewShare()
     {
         View::share('controller', $this->controller);
@@ -63,6 +78,11 @@ class SingleFormController extends Controller
         View::share('operations', $this->operations);
 
         View::share('input', Input::all());
+    }
+
+    protected function share($k, $v)
+    {
+        View::share($k, $v);
     }
 
     protected function viewMake($template, $var)
@@ -188,8 +208,12 @@ class SingleFormController extends Controller
             ];
     }
 
-    protected function add_raw_enum_dict($name, $id, $objs, $obj_id, $obj_name)
+    protected function add_raw_enum_dict($name, $id, $objs, $obj_id='id', $obj_name = Null)
     {
+        if($obj_name == Null)
+        {
+            $obj_name = $name;
+        }
         $dict = [];
         
         foreach ($objs as $obj)
@@ -201,8 +225,10 @@ class SingleFormController extends Controller
 
     }
 
-    protected function add_enum($name, $id, $type)
+    protected function add_enum($name, $id=Null, $type=Null)
     {
+        $id = empty($id) ? $name : $id;
+        $type = empty($type) ? $name : $type;
         $this->add_enum_dict($name, $id, Enum::dict($type));
     }
 }

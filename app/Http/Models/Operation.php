@@ -27,7 +27,7 @@ class Operation
     public function setEdit()
     {
         $this->name = "edit";
-        $this->style_type = "default";
+        $this->style_type = "primary";
         $this->style_icon = 'edit';
     }
 

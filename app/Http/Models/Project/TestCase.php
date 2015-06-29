@@ -4,11 +4,15 @@ namespace App\Http\Models\Project;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Models\DictModel;
 
-class TestCase extends Model
+class TestCase extends DictModel
 {
     use SoftDeletes;
     //
+    //
+    protected $dict_name="test_case_name";
+    protected $dict_id = "id";
     
     protected $table = 'test_case';
     protected $fillable = [
@@ -25,5 +29,4 @@ class TestCase extends Model
     {
         return $this->belongsTo('App\Http\Models\Project\Story');
     }
-
 }

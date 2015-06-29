@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\SingleFormController;
+use App\Http\Models\Project\DevPlan;
+use App\Http\Models\Project\Bug;
 
 class HomeController extends SingleFormController
 {
@@ -13,11 +15,25 @@ class HomeController extends SingleFormController
     {
         parent::__construct();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+
+    public function getIndex()
+    {
+        $DevPlans = DevPlan::where("owner_id", $this->userId())
+            ->whereNull('complete_at')
+            ->where('plan_start_at', '<', date('Y-m-d H:i:s'))
+            ->orderBy('priority', 'desc')
+            ->take(10)->get();
+
+        $Bugs = Bug::where("owner_id", $this->userId())
+            ->whereNull('fix_time')
+            ->orderBy('priority', 'desc')
+            ->take(10)->get();
+
+        return $this->viewMake('dashboard', [
+            'bugs' =>$Bugs,
+            'plans'=>$DevPlans,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

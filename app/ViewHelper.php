@@ -191,9 +191,24 @@ function display_html_control($model, $f, $fields_enum, $readonly)
             $html = $html."<script id='${f}_ueditor' name='$f' type='text/plain' class='pms-html-editor'>";
             $html = $html.$model->$f;
             $html = $html."</script>";
+            $html = $html."<script type='text/javascript'>";
+            $html = $html."UE.getEditor('${f}_ueditor');";
+            $html = $html."</script>";
     }
     return $html;
 
+}
+
+function display_custom_group_value($k, $v)
+{
+    $html = "<div class='pms-display-group'>";
+    $html .= "<div class='pms-group-title'><span>".trans("title.$k").":</span></div>";
+    $html .= "<div class='pms-group-value'><span>".$v."</span></div>";
+    $html .= "<div class='clear'></div>";
+
+    $html .= "</div>";
+
+    return $html;
 }
 
 function display_group_value($model, $f, $fields_enum, $type = '')
@@ -266,8 +281,15 @@ function create_button($operation, $privileges, $parms, $short=false)
         App\Http\Models\Setting\Route::addRoute($operation->route);
     }
 
+    if ($operation->name == "destroy")
+    {
+        return create_destroy_button($operation, $privileges, $parms);
+
+    }
+
     $action_url = action_url($operation->route, $parms);
-    $btn_name = trans("title.".$operation->name);
+    
+    $btn_name = "";//empty($operation->name)? "" : trans("title.".$operation->name);
     $btn_type = $operation->style_type;
     $btn_icon = $operation->style_icon;
 
@@ -280,3 +302,11 @@ function create_button($operation, $privileges, $parms, $short=false)
     $html.="</a>";
     return $html;
 }  
+
+function create_destroy_button($operation, $privileges=[], $parms=[], $short=true)
+{
+    $btn_name = ($short || empty($operation->name)) ?  "" : trans("title.".$operation->name);
+    $id = $parms['id'];
+
+    return '<a class="btn btn-danger glyphicon glyphicon-trash" onclick="destroy('.$id.");\">$btn_name</a>";
+}

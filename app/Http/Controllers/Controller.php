@@ -46,6 +46,7 @@ abstract class Controller extends BaseController
         }
         view()->share('nav_active_menu', $nav_menu_dict[$nav_name]["name"]);
         view()->share('nav_sub_menu', $sub_menu);
+        view()->share('privileges',[]);
 
     }
 }

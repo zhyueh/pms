@@ -27,7 +27,7 @@
                         <th>{{trans('title.difficult')}}</td>
                         <th width="50%">{{trans('title.description')}}</td>
                         <th>{{trans('title.updated')}}</th>
-                        <th colspan=2>{{trans('title.operation')}}</th>
+                        <th>{{trans('title.operation')}}</th>
                     </tr>
                 <thead>
                 <tbody>
@@ -39,8 +39,8 @@
                         <td>{{ $comment->difficult}}</td>
                         <td>{!! $comment->description !!}</td>
                         <td>{{ display_value($comment, "updated", $fields_enum) }}</td>
-                        <td><a class="btn btn-default" href="{{ action_url("Project\StoryController@getViewStory", ['id'=>$model->id, 'comment_id'=>$comment->id])}}"> {{trans('title.edit')}}</a></td>
-                        <td><a class="btn btn-danger" href="{{ action_url("Project\StoryCommentController@getDestroy", ['id'=>$comment->id])}}"> {{trans('title.destroy')}}</a></td>
+                        <td><a class="btn btn-default glyphicon glyphicon-edit" href="{{ action_url("Project\StoryController@getViewStory", ['id'=>$model->id, 'comment_id'=>$comment->id])."#comment-panel"}}"></a>
+                        <a class="btn btn-danger glyphicon glyphicon-trash" href="{{ action_url("Project\StoryCommentController@getDestroy", ['id'=>$comment->id])}}"></a></td>
                     </tr>
 <?php $index += 1; $work_hours += $comment->work_hour; $difficult += $comment->difficult; ?>
                 @endforeach
@@ -51,6 +51,7 @@
         
 
     <div class="panel panel-primary story-comment-panel">
+      <a name="comment-panel"></a>
       <div class="panel-heading">{{trans('title.new').trans('title.story').trans('title.comment')}}</div>
       <div class="panel-body">
             <div class="">

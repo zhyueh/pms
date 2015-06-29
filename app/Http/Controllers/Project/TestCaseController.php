@@ -6,38 +6,36 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\SingleFormController;
+use App\Http\Models\Project\Story;
+use App\Http\Models\Project\TestCase;
 
 class TestCaseController extends SingleFormController
 {
     public function __construct()
     {
-        /*
-        $this->model = 'App\Http\Models\Setting\Menu';
-        $this->fields_show = ['id' ,'name', 'action', 'updated_at'];
-        $this->fields_edit = ['name', 'action'];
-        $this->fields_create = ['name', 'action'];
+        $this->model = 'App\Http\Models\Project\TestCase';
+        $this->fields_show = ['id', 'test_case_name' ,'story_name', 'updated_at'];
+        $this->fields_edit = [
+            'test_case_name',
+            'test_case_type',
+            'story_name',
+            'precondition',
+            'test_step',
+            'test_sequence',
+            'remark',
+        ];
 
-
-        $menu = new Menu;
-        $parent_menus = $menu->where("parent_menu_id", 0)->get();
-        $parent_menu_dict = []; 
-        $parent_menu_dict[0] = '-';
-        foreach ($parent_menus as $parent_menu){
-            $parent_menu_dict[$parent_menu->id] = $parent_menu->name;
-        }
-        $this->fields_enum=['parent_menu'=>
-            [
-                'field'=>'parent_menu_id',
-                'enum'=>$parent_menu_dict,
-            ]];
-        */
+        $this->formCreate = 'project.edit_testcase';
+        $this->add_enum("test_sequence");
         parent::__construct();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+
+    public function getIndex()
+    {
+        $this->add_raw_enum_dict("story_name", "story_id", Story::all());
+        return parent::getIndex();
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -46,6 +44,21 @@ class TestCaseController extends SingleFormController
      */
     public function getCreate()
     {
+        $story_id = $this->inputId("story_id");
+        if($story_id)
+        {
+            $storys = [Story::find($story_id)];
+            $this->share('story', $storys[0]);
+
+        }
+        else
+        {
+            $storys = Story::all();
+        }
+
+        $this->add_raw_enum_dict("story_name", "story_id", $storys);
+        $this->add_enum("test_case_type");
+
         return parent::getCreate();
     }
 
@@ -80,7 +93,19 @@ class TestCaseController extends SingleFormController
      */
     public function getEdit()
     {
-        //
+        $id = $this->inputId("id");
+        $test_case = TestCase::find($id);
+
+        $this->add_raw_enum_dict("story_name", "story_id", [$test_case->story]);
+        $this->add_enum("test_case_type");
+        $story = $test_case->story;
+        $project = $story->project;
+
+        $this->share('story', $story);
+        $this->share('story_comments', $story->comments);
+
+        $this->add_raw_enum_dict('team_name', 'team_id', $project->teams, "id", "team_name");
+
         return parent::getEdit();
     }
 

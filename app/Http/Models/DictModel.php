@@ -13,7 +13,7 @@ class DictModel extends Model
     protected $dict_condition_field;
 
     public function dict($id = 0){
-        if (isset($this->dict_condition_field))
+        if (isset($this->dict_condition_field) && $id != 0)
         {
             $objs = $this->where($this->dict_condition_field, $id)->get();
         }

@@ -26,11 +26,6 @@
         {!! display_form_group($model, "requirement", $fields_enum, false, 'html') !!}
         {!! display_form_group($model, "remark", $fields_enum, false, 'html') !!}
 
-        <script type="text/javascript">
-            UE.getEditor('description_ueditor');
-            UE.getEditor('requirement_ueditor');
-            UE.getEditor('remark_ueditor');
-        </script>
 
         @if ($action != 'getShow')
         <div class="col-sm-4 col-sm-offset-2">

@@ -199,3 +199,20 @@ body a:hover{
     max-width:60%;
     text-align:left;
 }
+
+.pms-panel-table{
+    width:100%;
+    margin-left:0;
+}
+
+.pms-main-panel{
+    float:left;
+    margin-left:40px;
+    width:60%;
+}
+
+.pms-right-panel{
+    float:left;
+    margin-left:40px;
+    width:30%;
+}

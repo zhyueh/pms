@@ -15,6 +15,7 @@ return array(
     'AddProjectidToStory' => $baseDir . '/database/migrations/2015_06_24_094313_add_projectid_to_story.php',
     'AddSettingsTable' => $baseDir . '/database/migrations/2015_06_19_100951_add_settings_table.php',
     'AddStory' => $baseDir . '/database/migrations/2015_06_24_085238_add_story.php',
+    'AddTestResultRemark' => $baseDir . '/database/migrations/2015_06_29_161615_add_test_result_remark.php',
     'AddTestTable' => $baseDir . '/database/migrations/2015_06_26_175547_add_test_table.php',
     'AddUpdatedBy' => $baseDir . '/database/migrations/2015_06_24_162325_add_updated_by.php',
     'AddUpdatedByToStorycomment' => $baseDir . '/database/migrations/2015_06_25_082051_add_updated_by_to_storycomment.php',
@@ -518,5 +519,7 @@ return array(
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/Text/Template.php',
+    'UpdateBug' => $baseDir . '/database/migrations/2015_06_29_181437_update_bug.php',
+    'UpdateTestPlan' => $baseDir . '/database/migrations/2015_06_29_111215_update_test_plan.php',
     'UpdateUserEmailCanBeNull' => $baseDir . '/database/migrations/2015_06_18_090840_update-user-email-can-be-null.php',
 );

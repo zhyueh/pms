@@ -30,6 +30,9 @@ Route::controller('project/team', 'Project\TeamController');
 Route::controller('project/story', 'Project\StoryController');
 Route::controller('project/storycomment', 'Project\StoryCommentController');
 Route::controller('project/devplan', 'Project\DevPlanController');
+Route::controller('project/testcase', 'Project\TestCaseController');
+Route::controller('project/testplan', 'Project\TestPlanController');
+Route::controller('project/bug', 'Project\BugController');
 
 Route::controller('schedule', 'Schedule\ScheduleController');
 Route::controller('meeting', 'Meeting\MeetingController');

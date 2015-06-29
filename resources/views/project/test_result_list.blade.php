@@ -1,3 +1,7 @@
+@extends('master')
+
+@section('workspace')
+
 <div>
     {!! insert_destroy_script() !!}
     <table class="pms-table" id="pms-table">
@@ -53,3 +57,5 @@
         @endif
     </div>
 </div>
+
+@endsection

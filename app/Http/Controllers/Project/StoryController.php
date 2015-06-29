@@ -105,7 +105,7 @@ class StoryController extends SingleFormController
      */
     public function getCreate()
     {
-        return View::make('project.edit_story', ['model'=> new $this->model]);
+        return $this->viewMake('project.edit_story', ['model'=> new $this->model]);
     }
 
     /**
