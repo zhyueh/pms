@@ -34,6 +34,13 @@
                         <td>{{$version->fix_bugs}}</td>
                     </tr>
                     @endforeach
+                    @for ($i = count($versions); $i < 5; $i++)
+                    <tr>
+                    @for ($j= 0; $j < 8; $j++)
+                        <td>&nbsp;</td>
+                    @endfor
+                    </tr>
+                    @endfor
                 </tbody>
             </table>
         </div>
@@ -62,6 +69,13 @@
                         <td>{{$plan->plan_start_at}}</td>
                     </tr>
                 @endforeach
+                    @for ($i = count($plans); $i < 5; $i++)
+                    <tr>
+                    @for ($j= 0; $j < 3; $j++)
+                        <td>&nbsp;</td>
+                    @endfor
+                    </tr>
+                    @endfor
                 </tbody>
             </table>
         </div>
@@ -87,6 +101,13 @@
                         </td>
                     </tr>
                 @endforeach
+                @for ($i = count($bugs); $i < 5; $i++)
+                <tr>
+                @for ($j= 0; $j < 2; $j++)
+                    <td>&nbsp;</td>
+                @endfor
+                </tr>
+                @endfor
                 </tbody>
             </table>
         </div>
