@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\SingleFormController;
 use App\Http\Models\Project\DevPlan;
 use App\Http\Models\Project\Bug;
+use App\Http\Models\Project\Version;
 
 class HomeController extends SingleFormController
 {
@@ -18,6 +19,13 @@ class HomeController extends SingleFormController
 
     public function getIndex()
     {
+        $versions = Version::with("test_cases", "project")->orderBy('id', 'desc')->take(5)->get();
+        foreach($versions as $version)
+        {
+            $version->updateBugs();
+            $version->updateDevplans();
+        }
+
         $DevPlans = DevPlan::where("owner_id", $this->userId())
             ->whereNull('complete_at')
             ->where('plan_start_at', '<', date('Y-m-d H:i:s'))
@@ -30,6 +38,7 @@ class HomeController extends SingleFormController
             ->take(10)->get();
 
         return $this->viewMake('dashboard', [
+            'versions'=>$versions,
             'bugs' =>$Bugs,
             'plans'=>$DevPlans,
         ]);

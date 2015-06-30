@@ -9,7 +9,7 @@ use App\Http\Controllers\SingleFormController;
 use App\Http\Models\Project\Story;
 use App\Http\Models\Project\TestCase;
 
-class TestCaseController extends SingleFormController
+class TestCaseController extends ProjectBaseController
 {
     public function __construct()
     {
@@ -32,6 +32,20 @@ class TestCaseController extends SingleFormController
 
     public function getIndex()
     {
+        if ($this->version)
+        {
+            $storyids = [];
+            foreach ($this->version->storys as $story)
+            {
+                $storyids[] = $story->id;
+            }
+
+            $this->index_filters["story_id"] = [
+                "type"=>"in", 
+                "value"=>$storyids,
+            ];
+        }
+
         $this->add_raw_enum_dict("story_name", "story_id", Story::all());
         return parent::getIndex();
 

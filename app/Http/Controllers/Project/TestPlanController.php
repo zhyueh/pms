@@ -14,7 +14,7 @@ use App\Http\Models\Project\TestCase;
 use App\Http\Models\Project\Version;
 use App\Http\Models\Project\TestResult;
 
-class TestPlanController extends SingleFormController
+class TestPlanController extends ProjectBaseController
 {
     public function __construct()
     {
@@ -64,6 +64,14 @@ class TestPlanController extends SingleFormController
 
     public function getIndex()
     {
+        if ($this->version)
+        {
+            $this->index_filters["version_id"] = [
+                "type"=>"eq", 
+                "value"=>$this->version->id,
+            ];
+        }
+
         $this->genTestPlanOp();
         return parent::getIndex();
     }

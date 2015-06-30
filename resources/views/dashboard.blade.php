@@ -8,12 +8,40 @@
             {{trans('title.project').trans('title.summary')}}
         </div>
         <div class="panel-body"> 
+            <table class="pms-table pms-panel-table">
+                <thead>
+                    <tr>
+                        <th>{{trans('title.project')}}</th>
+                        <th>{{trans('title.version_name')}}</th>
+                        <th>{{trans('title.story')}}</th>
+                        <th>{{trans('title.dev_plan')}}</th>
+                        <th>{{trans('title.completed').trans('title.dev_plan')}}</th>
+                        <th>{{trans('title.test_case')}}</th>
+                        <th>bug</th>
+                        <th>{{trans('title.fixed_bug')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($versions as $version)
+                    <tr>
+                        <td>{{$version->project->project_name}}</td>
+                        <td>{{$version->version_name}}</td>
+                        <td>{{count($version->storys)}}</td>
+                        <td>{{$version->dev_plan_num}}</td>
+                        <td>{{$version->completed_plan_num}}</td>
+                        <td>{{count($version->test_cases)}}</td>
+                        <td>{{$version->bugs}}</td>
+                        <td>{{$version->fix_bugs}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            {{trans('title.my').trans('title.dev_plan')}}
+            {{trans('title.today').trans('title.dev_plan')}}
         </div>
         <div class="panel-body"> 
             <table class="pms-table pms-panel-table">
@@ -40,7 +68,7 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            {{trans('title.my').'bug'}}
+            {{trans('title.today').'bug'}}
         </div>
         <div class="panel-body"> 
             <table class="pms-table pms-panel-table">

@@ -29,6 +29,11 @@ class Story extends DictModel
         return $this->belongsTo('App\Http\Models\Project\Version');
     }
 
+    public function dev_plans()
+    {
+        return $this->hasMany('App\Http\Models\Project\DevPlan');
+    }
+
     public function test_cases()
     {
         return $this->hasMany('App\Http\Models\Project\TestCase');

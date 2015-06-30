@@ -29,4 +29,9 @@ class TestCase extends DictModel
     {
         return $this->belongsTo('App\Http\Models\Project\Story');
     }
+
+    public function bugs()
+    {
+        return $this->hasMany('App\Http\Models\Project\Bug');
+    }
 }

@@ -11,11 +11,10 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
 use App\Http\Models\Project\Project;
-use App\Http\Controllers\SingleFormController;
 use App\Http\Models\Operation;
 use App\Http\Models\Project\Team;
 
-class TeamController extends SingleFormController
+class TeamController extends ProjectBaseController
 {
     public function __construct()
     {
@@ -46,6 +45,19 @@ class TeamController extends SingleFormController
                 'enum'=>$project_dict,
             ]];
         parent::__construct();
+    }
+
+    public function getIndex()
+    {
+        if ($this->version)
+        {
+            $this->index_filters["project_id"] = [
+                "type"=>'eq',
+                "value"=>$this->version->project_id
+            ];
+        }
+        View::share("hide_nav_version", 1);
+        return parent::getIndex();
     }
 
     public function getTeamMemberList()

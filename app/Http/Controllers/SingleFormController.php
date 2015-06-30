@@ -35,6 +35,8 @@ class SingleFormController extends Controller
 
     protected $operations = [];
 
+    protected $index_filters = [];
+
     public function __construct()
     {
         $route = Route::currentRouteAction();
@@ -120,6 +122,18 @@ class SingleFormController extends Controller
         $sort = Input::get("sort", "id");
 
         $builder = $model->orderBy($sort, $sort_type);
+
+        foreach($this->index_filters as $k=>$filter)
+        {
+            if ($filter["type"] == "eq")
+            {
+                $builder->where($k, $filter["value"]);
+            }
+            else if ($filter["type"] == "in")
+            {
+                $builder->whereIn($k, $filter["value"]);
+            }
+        }
 
         $input = Input::all();
 

@@ -15,7 +15,7 @@ use Redirect;
 use App\Http\Models\Operation;
 
 
-class BugController extends SingleFormController
+class BugController extends ProjectBaseController
 {
     public function __construct()
     {
@@ -48,6 +48,20 @@ class BugController extends SingleFormController
             $op_edit,
             new Operation(gen_action("getDestroy"), "destroy"),
         ];
+
+        if ($this->version)
+        {
+            $test_cases = [];
+            foreach ($this->version->test_cases as $test_case)
+            {
+                $test_cases[] = $test_case->id;
+            }
+
+            $this->index_filters["test_case_id"] = [
+                "type"=>"in", 
+                "value"=>$test_cases,
+            ];
+        }
 
         return parent::getIndex();
     }

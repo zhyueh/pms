@@ -18,7 +18,7 @@ use App\Http\Models\Project\DevPlan;
 use App\Http\Models\Setting\Enum;
 use App\Http\Models\Operation;
 
-class DevPlanController extends SingleFormController
+class DevPlanController extends ProjectBaseController
 {
 
     public function __construct()
@@ -33,12 +33,13 @@ class DevPlanController extends SingleFormController
 
     public function getIndex()
     {
+        $this->formIndex = 'project.devplan_list';
+
         $this->add_enum_dict('story_name', 'story_id', (new Story)->dict());
 
         $this->add_enum_dict('owner_name', 'owner_id', User::dict());
         $this->add_enum('status_name', 'status', "dev_plan.status");
 
-        $this->formIndex = 'project.devplan_list';
 
         //add operation
         $start_btn = new Operation(gen_action('getStartPlan'), 'start');
@@ -55,6 +56,20 @@ class DevPlanController extends SingleFormController
 
 
         $this->operations['edit'] = new Operation(gen_action('getEdit'), 'edit');
+
+        if ($this->version)
+        {
+            $storyids = [];
+            foreach ($this->version->storys as $story)
+            {
+                $storyids[] = $story->id;
+            }
+
+            $this->index_filters["story_id"] = [
+                "type"=>"in", 
+                "value"=>$storyids,
+            ];
+        }
 
         return parent::getIndex();
     }
@@ -141,6 +156,9 @@ class DevPlanController extends SingleFormController
 
         $model = new $this->model;
         $model->dev_plan_name = "story#".$story->id."::".$team->team_name;
+        $model->plan_start_at = date('Y-m-d H:00:00');
+        $model->plan_complete_at = date('Y-m-d H:00:00');
+
         return $this->viewMake('project.edit_dev_plan', ['model'=> $model]);
     }
 

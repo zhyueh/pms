@@ -13,6 +13,7 @@ return array(
     'AddModuleTypeToMenu' => $baseDir . '/database/migrations/2015_06_23_071247_add_module_type_to_menu.php',
     'AddOwnerIdToDevPlan' => $baseDir . '/database/migrations/2015_06_25_115737_add_owner_id_to_dev_plan.php',
     'AddProjectidToStory' => $baseDir . '/database/migrations/2015_06_24_094313_add_projectid_to_story.php',
+    'AddSessionTable' => $baseDir . '/database/migrations/2015_06_30_094647_add_session_table.php',
     'AddSettingsTable' => $baseDir . '/database/migrations/2015_06_19_100951_add_settings_table.php',
     'AddStory' => $baseDir . '/database/migrations/2015_06_24_085238_add_story.php',
     'AddTestResultRemark' => $baseDir . '/database/migrations/2015_06_29_161615_add_test_result_remark.php',

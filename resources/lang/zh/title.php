@@ -73,5 +73,10 @@ return [
     'failed'=>'失败数',
     'bug_name'=>'Bug标题',
     'owner'=>'负责人',
+    'today'=>'今天',
     'serverity' => '严重性',
+    'test_case'=>'测试用例',
+    'fixed_bug'=>'修复的bug',
+    'completed'=>'完成的',
+
     ];

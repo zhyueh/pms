@@ -216,3 +216,14 @@ body a:hover{
     margin-left:40px;
     width:30%;
 }
+
+.nav_project{
+    width:150px;
+    float:left;
+}
+
+.nav_version{
+    margin-left:20px;
+    width:70px;
+    float:left;
+}

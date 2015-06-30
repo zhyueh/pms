@@ -25,7 +25,7 @@ use App\Http\Controllers\SingleFormController;
 
 
 
-class StoryController extends SingleFormController
+class StoryController extends ProjectBaseController
 {
     protected $project_id;
 
@@ -45,7 +45,6 @@ class StoryController extends SingleFormController
             $this->project_id = intval(Input::get("project_id", "0"));
         }
 
-        $this->add_enum_dict('priority_name', 'priority', Priority::dict());
         $user_dict = User::dict();
         $this->add_enum_dict('created', 'created_by', $user_dict);
         $this->add_enum_dict('updated', 'updated_by', $user_dict);
@@ -70,6 +69,18 @@ class StoryController extends SingleFormController
 
 
         parent::__construct();
+    }
+
+    public function getIndex()
+    {
+        if ($this->version)
+        {
+            $this->index_filters["version_id"] = [
+                "type"=>"eq", 
+                "value"=>$this->version->id
+            ];
+        }
+        return parent::getIndex();
     }
 
     public function getViewStory()

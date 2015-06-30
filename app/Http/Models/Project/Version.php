@@ -23,6 +23,51 @@ class Version extends Model
         return $this->hasMany('App\Http\Models\Project\Story');
     }
 
+    public function test_cases()
+    {
+        return $this->hasManyThrough(
+            'App\Http\Models\Project\TestCase',
+            'App\Http\Models\Project\Story'
+        );
+    }
+
+    public function updateDevplans()
+    {
+        $this->dev_plan_num = 0;
+        $this->completed_plan_num = 0;
+
+        foreach ($this->storys as $story)
+        {
+            foreach($story->dev_plans as $dev_plan)
+            {
+                $this->dev_plan_num += 1;
+                if (!empty($dev_plan->complete_at))
+                {
+                    $this->completed_plan_num+= 1;
+                }
+            }
+        }
+    }
+
+    public function updateBugs()
+    {
+        $bugs = 0;
+        $fix_bugs = 0;
+        foreach($this->test_cases as $test_case)
+        {
+            $bugs += count($test_case->bugs);
+            foreach($test_case->bugs as $bug)
+            {
+                if (!empty($bug->fix_time ))
+                {
+                    $fix_bugs += 1;
+                }
+            }
+        }
+        $this->bugs = $bugs;
+        $this->fix_bugs = $fix_bugs;
+    }
+
     public static function dict($project_id)
     {
         if ($project_id < 1)

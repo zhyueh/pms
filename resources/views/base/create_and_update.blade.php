@@ -1,4 +1,3 @@
-
 <div class="pms-edit-table">
     <form method="POST" action="{{action("$controller@postStore")}}">
         {!! csrf_field() !!}

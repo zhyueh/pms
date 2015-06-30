@@ -1,4 +1,4 @@
-@extends('master')
+@extends('project.indexbase')
 
 @section('notification')
 

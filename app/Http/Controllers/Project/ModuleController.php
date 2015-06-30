@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Project;
 
 use Illuminate\Http\Request;
 
+use View;
 use App\Http\Requests;
 use App\Http\Controllers\SingleFormController;
 use App\Http\Models\Project\Project;
 
-class ModuleController extends SingleFormController
+class ModuleController extends ProjectBaseController
 {
     public function __construct()
     {
@@ -31,11 +32,19 @@ class ModuleController extends SingleFormController
             ]];
         parent::__construct();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+
+    public function getIndex()
+    {
+        if ($this->version)
+        {
+            $this->index_filters["project_id"] = [
+                "type"=>'eq',
+                "value"=>$this->version->project_id
+            ];
+        }
+        View::share("hide_nav_version", 1);
+        return parent::getIndex();
+    }
 
     /**
      * Show the form for creating a new resource.
