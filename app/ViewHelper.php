@@ -96,8 +96,8 @@ function display_form_group($model, $f, $fields_enum=[], $readonly=false, $contr
 
 function display_datetime_control($model, $f, $fields_enum, $readonly)
 {
-    $html = "<div id='dtp_$f' class=\"input-append date form_datetime\">";
-    $html.= "<input class='form-control' name='$f' type='text' value='".$model->$f."' readonly>";
+    $html = "<div>";
+    $html.= "<input class='form-control form-datetime' name='$f' type='text' value='".$model->$f."' readonly>";
     $html.= "<span class=\"add-on\"><i class=\"icon-th\"></i></span>";
     $html.= "</div>";
 
@@ -241,7 +241,9 @@ function display_input_group_value($model, $f, $fields_enum)
 function insert_datetime_init_script()
 {
     $script = '<script type="text/javascript">'
-        .'$(".form_datetime").datetimepicker({'
+        .'$(".form-datetime").datetimepicker({'
+        .'language:"zh-CN",'
+        //.'bootcssVer:3,'
         .'format:"yyyy-mm-dd hh:00:00",'
         .'todayHighlight: 1,'
         .'daysOfWeekDisabled:[0,6],'

@@ -17,6 +17,7 @@ PMS 主页
 <script src="{{ base_url("jquery/jquery.min.js") }}"></script>
 <script src="{{ base_url("bootstrap-3.3.4-dist/js/bootstrap.min.js") }}"></script>
 <script src="{{ base_url("bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js") }}"></script>
+<script src="{{ base_url("bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js") }}"></script>
 
 @yield('reference_before_body')
 <body>
