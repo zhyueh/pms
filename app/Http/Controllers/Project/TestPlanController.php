@@ -38,8 +38,8 @@ class TestPlanController extends ProjectBaseController
     public function genTestPlanOp()
     {
         $op_test_result = new Operation(gen_action("getTestPlanSummary"),
-            "summary");
-        $op_test_result->style_icon = "list";
+            "details");
+        $op_test_result->style_icon = "zoom-in";
 
         $op_view_test_result = new Operation(gen_action("getImportTestCase"),
             "import");

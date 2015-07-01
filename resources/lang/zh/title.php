@@ -78,5 +78,14 @@ return [
     'test_case'=>'测试用例',
     'fixed_bug'=>'修复的bug',
     'completed'=>'完成的',
+    'password_confirm'=>'确认密码',
+    'refresh'=>'重置',
+    'copy' => '拷贝',
+    'start'=> '开始',
+    'off'=> '结束',
+    'execute'=>'执行',
+    'import'=>'导入',
+    'details'=>'明细',
+
 
     ];

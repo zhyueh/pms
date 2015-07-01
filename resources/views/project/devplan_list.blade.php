@@ -59,6 +59,7 @@
                         {!! create_button($operations['refresh'], [], ['id'=>$m->id], true)!!}
                     @endif
 
+                        {!! create_button($operations['copy'], [], ['id'=>$m->id] )!!}
                         {!! create_button($operations['edit'], [], ['id'=>$m->id] )!!}
                         {!! create_button($operations['destroy'], [], ['id'=>$m->id] )!!}
 

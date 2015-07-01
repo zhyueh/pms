@@ -55,6 +55,7 @@ class DevPlanController extends ProjectBaseController
         $this->operations['complete'] = $complete_btn;
 
 
+        $this->operations['copy'] = new Operation(gen_action('getCopy'), 'copy');
         $this->operations['edit'] = new Operation(gen_action('getEdit'), 'edit');
         $this->operations['destroy'] = new Operation(gen_action('getDestroy'), 'destroy');
 

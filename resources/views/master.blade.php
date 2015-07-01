@@ -15,6 +15,11 @@
     showAlert("pms-warning", "danger");
     $(".pms-table>tbody>tr:odd").css("background-color", "#f9f9f9"); 
     $(".pms-table>tbody>tr:even").css("background-color", "#fff"); 
+    var options = {
+        animation: true,
+        trigger: 'hover'
+    }
+    $(".pms-button-tool-tips").tooltip(options);
 </script>
 
 @endsection

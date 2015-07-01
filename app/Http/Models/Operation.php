@@ -12,6 +12,7 @@ class Operation
     public function __construct($route, $type)
     {
         $this->route = $route;
+        $this->name = $type;
 
         $this->style_type = "info";
 
@@ -23,6 +24,17 @@ class Operation
         {
             $this->setDestroy();
         }
+        else if ($type == "copy")
+        {
+            $this->setCopy();
+        }
+    }
+    public function setCopy()
+    {
+        $this->name = "copy";
+        $this->style_type = "default";
+        $this->style_icon = 'copy';
+
     }
     public function setEdit()
     {

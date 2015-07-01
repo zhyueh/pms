@@ -291,15 +291,11 @@ function create_button($operation, $privileges, $parms, $short=false)
 
     $action_url = action_url($operation->route, $parms);
     
-    $btn_name = "";//empty($operation->name)? "" : trans("title.".$operation->name);
+    $btn_name = empty($operation->name)? "" : trans("title.".$operation->name);
     $btn_type = $operation->style_type;
     $btn_icon = $operation->style_icon;
 
-    $html = "<a class='btn btn-$btn_type glyphicon glyphicon-$btn_icon' href='$action_url'>";
-    if(!$short)
-    {
-        $html.=$btn_name;
-    }
+    $html = "<a class='btn btn-$btn_type glyphicon glyphicon-$btn_icon pms-button-tool-tips' title='".$btn_name."' href='$action_url'>";
     
     $html.="</a>";
     return $html;

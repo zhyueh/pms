@@ -146,6 +146,21 @@ class SingleFormController extends Controller
         ]);
     }
 
+    public function getCopy()
+    {
+        $id = $this->inputId("id");
+        
+        $source = new $this->model;
+        $source = $source->find($id);
+        unset($source->id);
+        $source->exists = false;
+
+        $source->save();
+
+        return Redirect::to(action_url('getIndex'));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
