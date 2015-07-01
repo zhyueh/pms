@@ -43,8 +43,12 @@ abstract class Controller extends BaseController
         if (array_key_exists($nav_name, $nav_menu_dict))
         {
             $sub_menu = Menu::ofParent($nav_menu_dict[$nav_name]["id"])->orderBy('display_order')->get();
+            view()->share('nav_active_menu', $nav_menu_dict[$nav_name]["name"]);
         }
-        view()->share('nav_active_menu', $nav_menu_dict[$nav_name]["name"]);
+        else
+        {
+            view()->share('nav_active_menu', '');
+        }
         view()->share('nav_sub_menu', $sub_menu);
         view()->share('privileges',[]);
 

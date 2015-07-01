@@ -8,6 +8,7 @@
 
 @section('workspace')
 <div>
+    {!! insert_destroy_script() !!}
     <table class="pms-table" id="pms-table">
         <thead>
             <tr>
@@ -59,6 +60,7 @@
                     @endif
 
                         {!! create_button($operations['edit'], [], ['id'=>$m->id] )!!}
+                        {!! create_button($operations['destroy'], [], ['id'=>$m->id] )!!}
 
                     </td>
                 </tr>

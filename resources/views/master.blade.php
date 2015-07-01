@@ -34,7 +34,7 @@
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">个人信息</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">修改密码</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{{action_url('Auth\AuthController@getUpdatePwd')}}">修改密码</a></li>
                     <li class="divider"></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo action('Auth\AuthController@getLogout'); ?>">退出</a></li>
                 </ul>
@@ -61,6 +61,13 @@
         </div>
         <div id="pms-warning" class="pms-warning" role="alert">
             @yield('warning')
+            @if (count($errors) > 0)
+            <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+            @endif
         </div>
         <div class="pms-module-helper">
             <div class="pms-module-helper-left">

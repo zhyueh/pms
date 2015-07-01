@@ -51,5 +51,14 @@ body{
             <a class="btn btn-default" href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/auth/register" role="button">Register</a>
         </div>
     </form>
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+    </div>
+    @endif
 </div>
 @endsection

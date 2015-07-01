@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
+use Redirect;
+use Illuminate\Http\Request;
+use Input;
 use App\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\SingleFormController;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller
+class AuthController extends SingleFormController
 {
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +46,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+        parent::__construct();
     }
 
     /**
@@ -72,5 +77,34 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function getUpdatePwd()
+    {
+        return $this->viewMake('auth.update_pwd',
+            ['model'=> Auth::user()]);
+    }
+
+    public function postUpdatePwd(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        if ($validator->fails()){
+            return Redirect::To(action('Auth\AuthController@getUpdatePwd'))
+                ->withErrors($validator);
+        }
+
+        $user = User::find(Auth::user()->id);
+        $user->password = bcrypt(Input::get('password'));
+        $user->save();
+
+        return Redirect::to(action("Home\HomeController@getIndex"));
+    }
+
+    public function updatePwdValidate($request)
+    {
+
     }
 }

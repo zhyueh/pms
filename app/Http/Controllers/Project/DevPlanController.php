@@ -56,6 +56,7 @@ class DevPlanController extends ProjectBaseController
 
 
         $this->operations['edit'] = new Operation(gen_action('getEdit'), 'edit');
+        $this->operations['destroy'] = new Operation(gen_action('getDestroy'), 'destroy');
 
         if ($this->version)
         {
