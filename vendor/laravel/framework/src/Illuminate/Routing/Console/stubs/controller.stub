@@ -5,48 +5,28 @@ namespace DummyNamespace;
 use Illuminate\Http\Request;
 
 use DummyRootNamespaceHttp\Requests;
-use DummyRootNamespaceHttp\Controllers\SingleFormController;
+use DummyRootNamespaceHttp\Controllers\Controller;
 
-class DummyClass extends SingleFormController
+class DummyClass extends Controller
 {
-    public function __construct()
-    {
-        /*
-        $this->model = 'App\Http\Models\Setting\Menu';
-        $this->fields_show = ['id' ,'name', 'action', 'updated_at'];
-        $this->fields_edit = ['name', 'action'];
-        $this->fields_create = ['name', 'action'];
-
-
-        $menu = new Menu;
-        $parent_menus = $menu->where("parent_menu_id", 0)->get();
-        $parent_menu_dict = []; 
-        $parent_menu_dict[0] = '-';
-        foreach ($parent_menus as $parent_menu){
-            $parent_menu_dict[$parent_menu->id] = $parent_menu->name;
-        }
-        $this->fields_enum=['parent_menu'=>
-            [
-                'field'=>'parent_menu_id',
-                'enum'=>$parent_menu_dict,
-            ]];
-        */
-        parent::__construct();
-    }
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
+    public function index()
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function getCreate()
+    public function create()
     {
-        return parent::getCreate();
+        //
     }
 
     /**
@@ -54,10 +34,9 @@ class DummyClass extends SingleFormController
      *
      * @return Response
      */
-    public function postStore()
+    public function store()
     {
         //
-        return parent::postStore();
     }
 
     /**
@@ -66,10 +45,9 @@ class DummyClass extends SingleFormController
      * @param  int  $id
      * @return Response
      */
-    public function getShow()
+    public function show($id)
     {
         //
-        return parent::getShow();
     }
 
     /**
@@ -78,10 +56,9 @@ class DummyClass extends SingleFormController
      * @param  int  $id
      * @return Response
      */
-    public function getEdit()
+    public function edit($id)
     {
         //
-        return parent::getEdit();
     }
 
     /**
@@ -90,10 +67,9 @@ class DummyClass extends SingleFormController
      * @param  int  $id
      * @return Response
      */
-    public function postUpdate()
+    public function update($id)
     {
         //
-        return parent::postUpdate();
     }
 
     /**
@@ -102,9 +78,8 @@ class DummyClass extends SingleFormController
      * @param  int  $id
      * @return Response
      */
-    public function postDestroy()
+    public function destroy($id)
     {
         //
-        return parent::postDestroy();
     }
 }

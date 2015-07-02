@@ -73,6 +73,10 @@ class StoryController extends ProjectBaseController
 
     public function getIndex()
     {
+        $this->filter_list = [
+            'my'=>["created_by"=>["type"=>'eq', 'value'=>Auth::user()->id]],
+        ];
+
         if ($this->version)
         {
             $this->index_filters["version_id"] = [

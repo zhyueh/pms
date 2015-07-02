@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Input;
 use Redirect;
 use View;
+use Auth;
 
 
 use App\Http\Requests;
@@ -33,6 +34,14 @@ class DevPlanController extends ProjectBaseController
 
     public function getIndex()
     {
+        $this->filter_list = [
+            'to_me'=>["owner_id"=>["type"=>'eq', 'value'=>Auth::user()->id]],
+            'open'=>["start_at"=>["type"=>'null']],
+            'doing'=>["start_at"=>["type"=>'notnull'], 'complete_at'=>['type'=>'null']],
+            'closed'=>["complete_at"=>["type"=>'notnull']],
+        ];
+
+
         $this->formIndex = 'project.devplan_list';
 
         $this->add_enum_dict('story_name', 'story_id', (new Story)->dict());

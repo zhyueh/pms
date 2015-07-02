@@ -1,4 +1,4 @@
-@extends('master')
+@extends('project.indexbase')
 
 @section("module-helper-right")
     <a class="btn btn-primary glyphicon glyphicon-plus" href="{{ action("$controller@getCreate")}}">{{ trans('title.create') }}</a>

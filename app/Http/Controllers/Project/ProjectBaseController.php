@@ -18,6 +18,9 @@ class ProjectBaseController extends SingleFormController
 {
     protected $version;
 
+    protected $filter_list = [];
+    protected $select_filter;
+
     public function __construct()
     {
 
@@ -37,6 +40,28 @@ class ProjectBaseController extends SingleFormController
 
         $this->formIndex = 'project.index';
         parent::__construct();
+    }
+
+    public function getIndex()
+    {
+        $filterKey = Input::get("filter");
+        if (array_key_exists($filterKey, $this->filter_list))
+        {
+            $this->select_filter = $filterKey;
+            foreach($this->filter_list[$filterKey] as $k => $filter)
+            {
+                $this->index_filters[$k] = $filter;
+            }
+        }
+
+        return parent::getIndex();
+    }
+
+    protected function viewShare()
+    {
+        View::share("filter_list", $this->filter_list);
+        View::share("select_filter", $this->select_filter);
+        return parent::viewShare();
     }
 
     protected function updateDefault()
@@ -74,81 +99,5 @@ class ProjectBaseController extends SingleFormController
             $this->version = Version::orderBy("id", "desc")->first();
             Session::set("nav_version_id", $this->version->id);
         }
-        
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function getCreate()
-    {
-        return parent::getCreate();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function postStore()
-    {
-        //
-        return parent::postStore();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function getShow()
-    {
-        //
-        return parent::getShow();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function getEdit()
-    {
-        //
-        return parent::getEdit();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function postUpdate()
-    {
-        //
-        return parent::postUpdate();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function postDestroy()
-    {
-        //
-        return parent::postDestroy();
     }
 }

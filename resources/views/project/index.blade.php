@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('module-helper-left')
+@section('sub-header-ext')
 <div class="nav_project">
     <select id="nav_projects" name='nav_projects' class='form-control'>
         @foreach ($nav_projects as $id=>$name)
@@ -37,8 +37,15 @@ $("#nav_versions").change(function(){
 
 </script>
 
-<div class="clear"></div>
+@endsection
 
+@section("module-helper-left")
+    <ol class="pms-filter">
+        <li class="pms-filter-item"> <a href="{{action_url('getIndex')}}">{{ trans('title.all') }}</a></li>
+    @foreach ($filter_list as $k=>$v)
+        <li class="pms-filter-item"> <a href="{{action_url('getIndex', ['filter'=>$k])}}">{{ trans('title.'.$k) }}</a></li>
+    @endforeach
+    </ol>
 @endsection
 
 @section("module-helper-right")

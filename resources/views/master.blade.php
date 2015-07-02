@@ -1,6 +1,5 @@
 @extends('base')
 
-
 @section('reference_after_body')
 <script type="text/javascript">
     function showAlert(id, type){
@@ -54,9 +53,11 @@
     </div>
     <div class="pms-sub-module-nav">
         @section('sub-header')
+        @section('sub-header-ext')
+        @show()
         {!! display_nav_sub_menu($nav_sub_menu) !!}
-    <div class="clear"></div>
-       @show()
+        <div class="clear"></div>
+        @show()
     </div>
 </div>
 <div class="pms-body">

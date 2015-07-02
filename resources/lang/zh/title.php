@@ -86,6 +86,12 @@ return [
     'execute'=>'执行',
     'import'=>'导入',
     'details'=>'明细',
+    'to_me'=>'指派给我',
+    'open'=>'未开始',
+    'closed'=>'已关闭',
+    'doing'=>'进行中',
+    'all'=>'全部',
+
 
 
     ];

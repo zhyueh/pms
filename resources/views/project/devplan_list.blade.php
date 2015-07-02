@@ -1,11 +1,5 @@
 @extends('project.indexbase')
 
-@section('notification')
-
-{{ trans('message.dev_plan_create_from_story') }}
-
-@endsection
-
 @section('workspace')
 <div>
     {!! insert_destroy_script() !!}

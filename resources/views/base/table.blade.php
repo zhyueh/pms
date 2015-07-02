@@ -48,7 +48,7 @@
         <span class="pms-paginate-total" >总记录数:{{ $models->total() }} </span>
         <span class="pms-paginate-current" >当前页记录数:{{ $models->count() }} </span>
         <span class="pms-paginate-pages" >总页数:{{ $models->lastPage() }} </span>
-        {!! $models->appends(['sort'=>$sort, 'sort_type'=>$sort_type])->render() !!}
+        {!! $models->appends(['sort'=>$sort, 'sort_type'=>$sort_type, 'filter'=>isset($select_filter)?$select_filter:""])->render() !!}
         <div class="clear"></div>
         @endif
     </div>

@@ -11,6 +11,7 @@ use App\Http\Models\Project\TestCase;
 use App\Http\Models\Project\Bug;
 
 use App\User;
+use Auth;
 use Redirect;
 use App\Http\Models\Operation;
 
@@ -37,6 +38,9 @@ class BugController extends ProjectBaseController
 
     public function getIndex()
     {
+        $this->filter_list = [
+            'to_me'=>["owner_id"=>["type"=>'eq', 'value'=>Auth::user()->id]],
+            ];
 
         $op_edit = new Operation(gen_action("getEdit"), "edit");
         $op_show = new Operation(gen_action("getShow"), "show");

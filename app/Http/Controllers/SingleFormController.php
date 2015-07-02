@@ -129,6 +129,14 @@ class SingleFormController extends Controller
             {
                 $builder->where($k, $filter["value"]);
             }
+            else if ($filter["type"] == "null")
+            {
+                $builder->whereNull($k);
+            }
+            else if ($filter["type"] == "notnull")
+            {
+                $builder->whereNotNull($k);
+            }
             else if ($filter["type"] == "in")
             {
                 $builder->whereIn($k, $filter["value"]);
