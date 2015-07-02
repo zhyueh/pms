@@ -15,7 +15,6 @@ class BaseListener
 
             $message->subject(array_get($data, 'subject', 'unknow subject' ));
             $cc = array_get($data, 'cc', []);
-            Log::info($cc);
             foreach ($cc as $c)
             {
                 $message->cc($c->email);
