@@ -29,7 +29,15 @@ class BugListener extends BaseListener
      */
     public function handle(BugEvent $event)
     {
-        $bug = Bug::find($event->bugId);
+        //-.-!
+        if ($event->bugId > 1)
+        {
+            $bug = Bug::find($event->bugId);
+        }
+        else
+        {
+            $bug = Bug::orderBy('id', 'desc')->first();
+        }
         $cc = [];
         if ($event->action == "fix")
         {
