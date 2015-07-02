@@ -9,6 +9,7 @@ use App\Http\Controllers\SingleFormController;
 use App\Http\Models\Project\Team;
 use App\Http\Models\Project\TestCase;
 use App\Http\Models\Project\Bug;
+use App\Http\Models\Project\Version;
 
 use App\User;
 use Auth;
@@ -31,6 +32,7 @@ class BugController extends ProjectBaseController
         $this->add_enum_dict("test_case_name", "test_case_id", (new TestCase)->dict());
         $this->add_enum_dict("owner", "owner_id", User::dict());
 
+        $this->add_enum_dict("version_name", "version_id", Version::dict(0));
         $this->formCreate = "project.edit_bug";
         parent::__construct();
     }
@@ -46,7 +48,6 @@ class BugController extends ProjectBaseController
         $op_show = new Operation(gen_action("getShow"), "show");
         $op_show->style_icon = "zoom-in";
 
-
         $this->operations = [ 
             $op_show,
             $op_edit,
@@ -55,6 +56,8 @@ class BugController extends ProjectBaseController
 
         if ($this->version)
         {
+            $this->add_enum_dict("version_name", "version_id", Version::dict($this->version->project_id));
+            /*
             $test_cases = [];
             foreach ($this->version->test_cases as $test_case)
             {
@@ -64,6 +67,11 @@ class BugController extends ProjectBaseController
             $this->index_filters["test_case_id"] = [
                 "type"=>"in", 
                 "value"=>$test_cases,
+            ];*/
+
+            $this->index_filters["version_id"] = [
+                "type"=>"eq", 
+                "value"=>$this->version->id,
             ];
         }
 

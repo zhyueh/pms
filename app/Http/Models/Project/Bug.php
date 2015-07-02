@@ -13,6 +13,7 @@ class Bug extends Model
     protected $table = 'bug';
     protected $fillable = [
         "test_case_id",
+        "version_id",
         "bug_name",
         "team_id",
         "owner_id",

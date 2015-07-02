@@ -23,6 +23,11 @@ class Version extends Model
         return $this->hasMany('App\Http\Models\Project\Story');
     }
 
+    public function bugs()
+    {
+        return $this->hasMany('App\Http\Models\Project\Bug');
+    }
+
     public function test_cases()
     {
         return $this->hasManyThrough(
@@ -53,6 +58,7 @@ class Version extends Model
     {
         $bugs = 0;
         $fix_bugs = 0;
+        /*
         foreach($this->test_cases as $test_case)
         {
             $bugs += count($test_case->bugs);
@@ -64,6 +70,17 @@ class Version extends Model
                 }
             }
         }
+         */
+
+        foreach($this->bugs as $bug)
+        {
+            $bugs += 1;
+            if (!empty($bug->fix_time ))
+            {
+                $fix_bugs += 1;
+            }
+        }
+
         $this->bugs = $bugs;
         $this->fix_bugs = $fix_bugs;
     }

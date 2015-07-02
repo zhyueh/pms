@@ -91,7 +91,6 @@ return [
     'closed'=>'已关闭',
     'doing'=>'进行中',
     'all'=>'全部',
-
-
-
+    'reactive'=>'重新打开',
+    'show'=>'展示',
     ];

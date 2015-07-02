@@ -14,6 +14,7 @@
         </div>
         @endif
 
+        {!! display_form_group($model, "version_name", $fields_enum) !!}
         {!! display_form_group($model, "test_case_name", $fields_enum) !!}
         {!! display_form_group($model, "bug_name", []) !!}
         {!! display_form_group($model, "team_name", $fields_enum) !!}
