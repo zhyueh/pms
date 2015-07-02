@@ -47,3 +47,4 @@ function gen_action($action)
 {
     return get_current_controller()."@".$action;
 }
+

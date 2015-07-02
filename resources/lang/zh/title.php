@@ -93,4 +93,6 @@ return [
     'all'=>'全部',
     'reactive'=>'重新打开',
     'show'=>'展示',
+    'update'=>'更新',
+    'fix'=>'修复',
     ];

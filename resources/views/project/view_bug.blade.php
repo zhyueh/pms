@@ -9,7 +9,7 @@
 <div class="panel panel-info bug-desc-panel">
     <div class="panel-heading">bug{{trans('title.description')}}</div>
     <div class="panel-body">
-        {!! display_group_value($model, "test_case_name", $fields_enum) !!}
+        {!! display_group_value($model, "version_name", $fields_enum) !!}
         {!! display_group_value($model, "bug_name", []) !!}
         {!! display_group_value($model, "team_name", $fields_enum) !!}
         {!! display_group_value($model, "owner", $fields_enum) !!}

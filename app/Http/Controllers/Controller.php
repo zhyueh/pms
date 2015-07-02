@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use App\Http\Models\Setting\Menu;
 use Route;
+use Mail;
 
 abstract class Controller extends BaseController
 {

@@ -15,6 +15,8 @@ use App\User;
 use Auth;
 use Redirect;
 use App\Http\Models\Operation;
+use Event;
+use App\Events\BugEvent;
 
 
 class BugController extends ProjectBaseController
@@ -96,7 +98,11 @@ class BugController extends ProjectBaseController
     public function postStore()
     {
         //
-        return parent::postStore();
+        $re = parent::postStore();
+
+        Event::fire(new BugEvent($this->inputId("id")));
+
+        return $re;
     }
 
     /**
@@ -165,6 +171,8 @@ class BugController extends ProjectBaseController
         $bug->fix_time = null;
         $bug->save();
 
+        Event::fire(new BugEvent($bug_id, "reactive"));
+
         return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
 
     }
@@ -176,6 +184,8 @@ class BugController extends ProjectBaseController
         $bug->fix_time = date('Y-m-d H:i:s');
         $bug->save();
 
+        Event::fire(new BugEvent($bug_id, "fix"));
+
         return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
     }
 
@@ -186,42 +196,8 @@ class BugController extends ProjectBaseController
         $bug->close_time = date('Y-m-d H:i:s');
         $bug->save();
 
+        Event::fire(new BugEvent($bug_id, "close"));
+
         return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function getEdit()
-    {
-        //
-        return parent::getEdit();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function postUpdate()
-    {
-        //
-        return parent::postUpdate();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function postDestroy()
-    {
-        //
-        return parent::postDestroy();
     }
 }

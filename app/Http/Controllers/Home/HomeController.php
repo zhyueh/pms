@@ -9,6 +9,8 @@ use App\Http\Controllers\SingleFormController;
 use App\Http\Models\Project\DevPlan;
 use App\Http\Models\Project\Bug;
 use App\Http\Models\Project\Version;
+use Auth;
+use Mail;
 
 class HomeController extends SingleFormController
 {
