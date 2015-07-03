@@ -23,4 +23,9 @@ class Bug extends Model
         "serverity",
         "priority",
     ];
+
+    public function historys()
+    {
+        return $this->hasMany('App\Http\Models\Project\BugHistory');
+    }
 }

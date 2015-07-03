@@ -36,6 +36,7 @@ class HomeController extends SingleFormController
 
         $Bugs = Bug::where("owner_id", $this->userId())
             ->whereNull('fix_time')
+            ->whereNotNull('close_time')
             ->orderBy('priority', 'desc')
             ->take(10)->get();
 

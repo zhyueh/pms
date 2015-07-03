@@ -6,6 +6,7 @@ use App\Events\BugEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Http\Models\Project\Bug;
+use App\Http\Models\Project\BugHistory;
 use Auth;
 use App\User;
 
@@ -30,6 +31,7 @@ class BugListener extends BaseListener
     public function handle(BugEvent $event)
     {
         //-.-!
+        //use the latest bug if not bug id
         if ($event->bugId > 1)
         {
             $bug = Bug::find($event->bugId);
@@ -38,11 +40,22 @@ class BugListener extends BaseListener
         {
             $bug = Bug::orderBy('id', 'desc')->first();
         }
+
+        $bugHistory = new BugHistory;
+        $bugHistory->bug_id = $bug->id;
+        $bugHistory->operation = $event->action;
+        $bugHistory->comment = $event->comment;
+        $bugHistory->save();
+
         $cc = [];
         if ($event->action == "fix")
         {
             $to = User::find($bug->created_by);
             $cc[] = User::find($bug->owner_id);
+        }
+        else if ($event->action == "confirm")
+        {
+            $to = User::find($bug->created_by);
         }
         else
         {

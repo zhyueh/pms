@@ -13,6 +13,7 @@ use App\Http\Models\Project\Version;
 
 use App\User;
 use Auth;
+use Input;
 use Redirect;
 use App\Http\Models\Operation;
 use Event;
@@ -42,8 +43,29 @@ class BugController extends ProjectBaseController
 
     public function getIndex()
     {
-        $this->filter_list = [
-            'to_me'=>["owner_id"=>["type"=>'eq', 'value'=>Auth::user()->id]],
+        $this->filter_list = 
+            [
+                'to_me'=>[
+                    "owner_id"=>[
+                        "type"=>'eq', 'value'=>Auth::user()->id
+                    ]
+                ],
+                'wait'=> [
+                    'close_time'=>['type'=>'null'],
+                    'confirm_time'=>['type'=>'null']
+                ],
+                'doing'=>[
+                    'close_time'=>['type'=>'null'],
+                    'fix_time'=>['type'=>'null'],
+                    'confirm_time'=>['type'=>'notnull']
+                ],
+                'waiting_close'=>[
+                    'fix_time'=>['type'=>'notnull'],
+                    'close_time'=>['type'=>'null'],
+                    ],
+                'close'=>[
+                    'close_time'=>['type'=>'notnull'],
+                    ],
             ];
 
         $op_edit = new Operation(gen_action("getEdit"), "edit");
@@ -117,13 +139,16 @@ class BugController extends ProjectBaseController
         $bug_id = $this->inputId("id");
         $bug = Bug::find($bug_id);
 
-
         $this->operations = [];
+
+        $op_comment = new Operation(gen_action('getBugOp'), 'write');
+        $op_comment->style_icon ="pencil";
+        $this->operations[] = $op_comment;
 
         //add confirm
         if (!$bug->confirm_time)
         {
-            $op_confirm = new Operation(gen_action('getConfirmBug'), 'confirm');
+            $op_confirm = new Operation(gen_action('getBugOp'), 'confirm');
             $op_confirm->style_icon="ok";
             $this->operations[] = $op_confirm;
         }
@@ -131,16 +156,19 @@ class BugController extends ProjectBaseController
         //add reactive
         if ($bug->confirm_time && !$bug->fix_time)
         {
-            $op_fix = new Operation(gen_action('getFixBug'), 'fix');
+            $op_fix = new Operation(gen_action('getBugOp'), 'fix');
             $op_fix->style_icon="off";
             $this->operations[] = $op_fix;
         }
 
         //add reactive
-        $op_reactive = new Operation(gen_action('getReactiveBug'), 'reactive');
+        $op_reactive = new Operation(gen_action('getBugOp'), 'reactive');
         $op_reactive->style_icon="repeat";
         $this->operations[] = $op_reactive;
 
+        $op_close = new Operation(gen_action('getBugOp'), 'close');
+        $op_close->style_icon="check";
+        $this->operations[] = $op_close;
 
         return $this->viewMake("project.view_bug",
             [
@@ -148,56 +176,41 @@ class BugController extends ProjectBaseController
             ]);
     }
 
-    public function getConfirmBug()
+    public function getBugOp()
     {
+        $comment = Input::get("comment");
         $bug_id = $this->inputId("id");
         $bug = Bug::find($bug_id);
-        if (! $bug->confirm_time)
+        $now = date('Y-m-d H:i:s');
+        $op = "";
+        if (input_contain_empty("confirm") && !$bug->confirm_time)
         {
+            $op = "confirm";
             $bug->active_times = $bug->active_times + 1;
-            $bug->confirm_time = date('Y-m-d H:i:s');
-            $bug->save();
+            $bug->confirm_time = $now;
+        }else if(input_contain_empty("reactive"))
+        {
+            $op = "reactive";
+            $bug->confirm_time = null;
+            $bug->fix_time = null;
+            $bug->close_time = null;
+        }else if(input_contain_empty("fix"))
+        {
+            $op = "fix";
+            $bug->fix_time = $now;
+        }else if(input_contain_empty('close'))
+        {
+            $op = "close";
+            $bug->close_time = $now;
+        }else{
+            $op = "write";
         }
 
-        return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
-    }
-
-    public function getReactiveBug()
-    {
-        $bug_id = $this->inputId("id");
-        $bug = Bug::find($bug_id);
-        $bug->confirm_time = null;
-        $bug->close_time = null;
-        $bug->fix_time = null;
         $bug->save();
 
-        Event::fire(new BugEvent($bug_id, "reactive"));
+        Event::fire(new BugEvent($bug_id, $op, $comment));
 
-        return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
-
-    }
-
-    public function getFixBug()
-    {
-        $bug_id = $this->inputId("id");
-        $bug = Bug::find($bug_id);
-        $bug->fix_time = date('Y-m-d H:i:s');
-        $bug->save();
-
-        Event::fire(new BugEvent($bug_id, "fix"));
-
-        return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
-    }
-
-    public function getCloseBug()
-    {
-        $bug_id = $this->inputId("id");
-        $bug = Bug::find($bug_id);
-        $bug->close_time = date('Y-m-d H:i:s');
-        $bug->save();
-
-        Event::fire(new BugEvent($bug_id, "close"));
-
+        //return Redirect::to(action_url("getIndex"));
         return Redirect::to(action_url("getShow", ['id'=>$bug->id]));
     }
 }

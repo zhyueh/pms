@@ -48,3 +48,7 @@ function gen_action($action)
     return get_current_controller()."@".$action;
 }
 
+function input_contain_empty($k)
+{
+    return Input::get($k, "1") == "";
+}

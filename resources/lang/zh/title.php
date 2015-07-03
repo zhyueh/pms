@@ -23,6 +23,9 @@ return [
     'password' => '密码',
     'team_name' => '团队名称',
     'confirm_delete' => '确认删除', 
+    'confirm' => '确认', 
+    'test_plan_name'=>'测试计划名',
+    'close' => '关闭', 
     'set_member_list' => '设置成员',
     'member_list' => '成员列表',
     'select'=> '选择',
@@ -95,4 +98,9 @@ return [
     'show'=>'展示',
     'update'=>'更新',
     'fix'=>'修复',
+    'write'=>'写',
+    'wait'=>'等待',
+    'waiting_close'=>'待关闭',
+
+
     ];

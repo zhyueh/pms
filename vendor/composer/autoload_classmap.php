@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddBugHistory' => $baseDir . '/database/migrations/2015_07_03_110211_add_bug_history.php',
     'AddButtonTable' => $baseDir . '/database/migrations/2015_06_26_031811_add_button_table.php',
+    'AddDeletedAtToBugHistory' => $baseDir . '/database/migrations/2015_07_03_120511_add_deleted_at_to_bug_history.php',
     'AddDeletedAtToSetting' => $baseDir . '/database/migrations/2015_06_23_015612_add_deleted_at_to_setting.php',
     'AddDevPlanType' => $baseDir . '/database/migrations/2015_06_25_154857_add_dev_plan_type.php',
     'AddDisplayOrderToMenu' => $baseDir . '/database/migrations/2015_06_23_100152_add_display_order_to_menu.php',

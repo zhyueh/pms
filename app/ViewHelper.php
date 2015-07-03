@@ -260,27 +260,40 @@ function insert_datetime_init_script()
 
 }
 
-function insert_destroy_script()
+function check_operation($operation, $privileges)
 {
-    $script = '<script type="text/javascript">'
-        .'function destroy(id){'
-        .'if(confirm("'.trans('title.confirm_delete'). '=> " + id)){'
-        .'window.location = "'.action_url(gen_action("getDestroy")).'?id="+ id;'
-        .'}'
-        .'}'
-        .'</script>';
-
-    return $script;
-}
-
-function create_button($operation, $privileges, $parms, $short=false)
-{
-    /* spec for admin manager button list :) */
     list($controller, $action) = explode("@", $operation->route);
 
     if (Auth::User()->id == 1)
     {
         App\Http\Models\Setting\Route::addRoute($operation->route);
+    }
+    return true;
+}
+
+function create_submit($operation, $privileges)
+{
+    if (!check_operation($operation, $privileges))
+    {
+        return;
+    }
+    $btn_name = empty($operation->name)? "" : trans("title.".$operation->name);
+    $btn_type = $operation->style_type;
+    $btn_icon = $operation->style_icon;
+    $name = $operation->name;
+
+    $html = "<button type='submit' class='btn btn-$btn_type glyphicon glyphicon-$btn_icon pms-button-tool-tips' title='".$btn_name."' name='$name' ></button>";
+    
+    return $html;
+
+}
+
+function create_button($operation, $privileges, $parms, $short=false)
+{
+    /* spec for admin manager button list :) */
+    if (!check_operation($operation, $privileges))
+    {
+        return;
     }
 
     if ($operation->name == "destroy")
@@ -300,6 +313,19 @@ function create_button($operation, $privileges, $parms, $short=false)
     $html.="</a>";
     return $html;
 }  
+
+function insert_destroy_script()
+{
+    $script = '<script type="text/javascript">'
+        .'function destroy(id){'
+        .'if(confirm("'.trans('title.confirm_delete'). '=> " + id)){'
+        .'window.location = "'.action_url(gen_action("getDestroy")).'?id="+ id;'
+        .'}'
+        .'}'
+        .'</script>';
+
+    return $script;
+}
 
 function create_destroy_button($operation, $privileges=[], $parms=[], $short=true)
 {
