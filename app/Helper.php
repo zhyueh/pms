@@ -52,3 +52,11 @@ function input_contain_empty($k)
 {
     return Input::get($k, "1") == "";
 }
+
+
+/** date operation **/
+function date_after($date, $days=1)
+{
+    return date("Y-m-d H:M:S", strtotime($date) + 60 * 60 * 24* $days);
+
+}

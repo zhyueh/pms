@@ -58,6 +58,7 @@ class Version extends Model
     {
         $bugs = 0;
         $fix_bugs = 0;
+        $close_bugs = 0;
         /*
         foreach($this->test_cases as $test_case)
         {
@@ -79,10 +80,16 @@ class Version extends Model
             {
                 $fix_bugs += 1;
             }
+
+            if (!empty($bug->close_time))
+            {
+                $close_bugs += 1;
+            }
         }
 
         $this->bugs = $bugs;
         $this->fix_bugs = $fix_bugs;
+        $this->close_bugs = $close_bugs;
     }
 
     public static function dict($project_id)

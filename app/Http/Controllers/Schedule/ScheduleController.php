@@ -4,87 +4,82 @@ namespace App\Http\Controllers\Schedule;
 
 use Illuminate\Http\Request;
 
+use Input;
+use View;
 use App\Http\Requests;
 use App\Http\Controllers\SingleFormController;
+use App\Http\Models\Project\Version;
+use App\Http\Models\Project\Story;
+use App\Http\Models\Project\DevPlan;
+
 
 class ScheduleController extends SingleFormController
 {
+
     public function __construct()
     {
-        parent::__construct();
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function getCreate()
-    {
-        return parent::getCreate();
+        View::share('versions', Version::dict(0));
+        return parent::__construct();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function postStore()
+    public function selectedVersion()
     {
-        //
-        return parent::postStore();
+        $version_id = $this->inputId("version_id");
+        if ($version_id)
+        {
+            $version = Version::find($version_id);
+            View::share("selected_version", $version_id);
+        }
+        else
+        {
+            $version = Version::orderBy('id', 'desc')->first();
+            View::share("selected_version", $version->id);
+        }
+        return $version;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function getShow()
+    public function getIndex()
     {
-        //
-        return parent::getShow();
+        $project_dev_plans = [];
+        $min_date = null;
+        $max_date = null;
+        foreach($this->selectedVersion()->storys as $story)
+        {
+            $dev_plans = $story->dev_plans()->orderBy('start_at')->get();
+            $project_dev_plans[] = [
+                "story" => $story, 
+                "dev_plans" => $dev_plans,
+                ];
+
+            foreach($dev_plans as $dev_plan)
+            {
+                if(empty($min_date) || $min_date > $dev_plan->plan_start_at)
+                {
+                    $min_date = $dev_plan->plan_start_at;
+                }
+
+                if(empty($max_date) || $max_date < $dev_plan->plan_complete_at)
+                {
+                    $max_date = $dev_plan->plan_complete_at;
+                }
+            }
+        }
+
+        return $this->viewMake('schedule', [
+            'project_dev_plans' =>$project_dev_plans,
+            'calendar'=>$this->genCalendar($min_date, $max_date),
+            ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function getEdit()
+    public function genCalendar($min_date, $max_date)
     {
-        //
-        return parent::getEdit();
+        $calendar = (object)null;
+        #$calendar->min_date = strtotime(explode($min_date, ' ')[0]." 00：00:00");
+        $calendar->min_date = strtotime(explode(' ', $min_date)[0]." 00:00:00");
+        $calendar->max_date = strtotime(date_after(explode(' ',date_add( $max_date)[0]." 00:00:00")));
+
+        return $calendar;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function postUpdate()
-    {
-        //
-        return parent::postUpdate();
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function postDestroy()
-    {
-        //
-        return parent::postDestroy();
-    }
 }

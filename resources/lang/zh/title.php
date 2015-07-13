@@ -79,7 +79,7 @@ return [
     'today'=>'今天',
     'serverity' => '严重性',
     'test_case'=>'测试用例',
-    'fixed_bug'=>'修复的bug',
+    'fixed_bug'=>'修复bug',
     'completed'=>'完成的',
     'password_confirm'=>'确认密码',
     'refresh'=>'重置',
@@ -101,6 +101,7 @@ return [
     'write'=>'写',
     'wait'=>'等待',
     'waiting_close'=>'待关闭',
+    'closed_bug'=>'关闭BUG',
 
 
     ];

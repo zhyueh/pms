@@ -28,6 +28,11 @@ class DevPlan extends Model
         'description',
     ];
 
+    public function owner()
+    {
+        return $this->hasOne('App\User', "id", "owner_id");
+    }
+
     public function story()
     {
         return $this->belongsTo('App\Http\Models\Project\Story');

@@ -19,6 +19,7 @@
                         <th>{{trans('title.test_case')}}</th>
                         <th>bug</th>
                         <th>{{trans('title.fixed_bug')}}</th>
+                        <th>{{trans('title.closed_bug')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,7 @@
                         <td>{{count($version->test_cases)}}</td>
                         <td>{{$version->bugs}}</td>
                         <td>{{$version->fix_bugs}}</td>
+                        <td>{{$version->close_bugs}}</td>
                     </tr>
                     @endforeach
                     @for ($i = count($versions); $i < 5; $i++)
