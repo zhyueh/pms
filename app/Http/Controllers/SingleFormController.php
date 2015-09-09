@@ -140,6 +140,9 @@ class SingleFormController extends Controller
             else if ($filter["type"] == "in")
             {
                 $builder->whereIn($k, $filter["value"]);
+            }else if ($filter['type'] == 'like')
+            {
+                $builder->where($k, 'like', $filter['value']);
             }
         }
 

@@ -20,6 +20,7 @@ class ProjectBaseController extends SingleFormController
 
     protected $filter_list = [];
     protected $select_filter;
+    protected $search_field = "";
 
     public function __construct()
     {
@@ -53,6 +54,16 @@ class ProjectBaseController extends SingleFormController
                 $this->index_filters[$k] = $filter;
             }
         }
+
+        if(($keyword = Input::get("search")) && $this->search_field )
+        {
+            $this->index_filters[$this->search_field] = [
+                'type'=>'like',
+                'value'=>"%".$keyword."%",
+                ];
+            $this->viewShare("keyword", $keyword);
+        }
+
 
         return parent::getIndex();
     }

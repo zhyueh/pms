@@ -35,6 +35,13 @@ $("#nav_versions").change(function(){
     window.location = "{{ action_url("getIndex") }}" + "?version_id=" + $("#nav_versions").val();
 });
 
+$(function(){
+    $(".btnSearch").click(function(){
+        console.log("ok");
+        window.location = "{{ action_url("getIndex") }}" + "?search=" + $(".keyword").val();
+    });
+});
+
 </script>
 
 @endsection
@@ -45,6 +52,8 @@ $("#nav_versions").change(function(){
     @foreach ($filter_list as $k=>$v)
         <li class="pms-filter-item"> <a href="{{action_url('getIndex', ['filter'=>$k])}}">{{ trans('title.'.$k) }}</a></li>
     @endforeach
+        <li class="pms-filter-item"><input class="keyword" placeholder="search" @if (isset($keyword)) value="{{$keyword}}" @endif ></input></li>
+        <li class="pms-filter-item"><input type="button" class="btnSearch" value="{{ trans('title.search') }}"></input></li>
     </ol>
 @endsection
 

@@ -38,7 +38,7 @@
                     @endforeach
                     @for ($i = count($versions); $i < 5; $i++)
                     <tr>
-                    @for ($j= 0; $j < 8; $j++)
+                    @for ($j= 0; $j < 9; $j++)
                         <td>&nbsp;</td>
                     @endfor
                     </tr>

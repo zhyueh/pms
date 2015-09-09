@@ -68,6 +68,7 @@ class StoryController extends ProjectBaseController
         ];
 
 
+        $this->search_field = "story_name";
         parent::__construct();
     }
 
@@ -84,6 +85,7 @@ class StoryController extends ProjectBaseController
                 "value"=>$this->version->id
             ];
         }
+
         return parent::getIndex();
     }
 

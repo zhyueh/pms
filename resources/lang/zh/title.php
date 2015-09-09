@@ -102,6 +102,7 @@ return [
     'wait'=>'等待',
     'waiting_close'=>'待关闭',
     'closed_bug'=>'关闭BUG',
+    'search'=>'搜索',
 
 
     ];
