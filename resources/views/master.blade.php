@@ -3,11 +3,11 @@
 @section('reference_after_body')
 <script type="text/javascript">
     function showAlert(id, type){
-        var trimValue = $("#" + id).html().trim();
-        if (trimValue != ''){
+        var trimVal = $("#" + id).html().trim();
+        if (trimVal != ''){
             $("#" + id).show(); 
             $("#" + id).addClass("alert").addClass("alert-" + type);
-            console.log(trimValue);
+            console.log(trimVal);
         }
     }
     showAlert("pms-notification", "info");
