@@ -3,7 +3,7 @@
 @section('reference_after_body')
 <script type="text/javascript">
     function showAlert(id, type){
-        trimValue = $("#" + id).html().trim()
+        trimValue = $("#" + id).html().trim();
         if (trimValue != ''){
             $("#" + id).show(); 
             $("#" + id).addClass("alert").addClass("alert-" + type);
